@@ -271,7 +271,7 @@ app.get("/userPremium/reviews", async (req, res) => {
 });
 
 //This endpoint will post a new blog from a simple user
-app.post("/jobs", async (req, res) => {
+app.post("/blogs", async (req, res) => {
   try {
     const { title, location, blog, userId } =
       req.body;
