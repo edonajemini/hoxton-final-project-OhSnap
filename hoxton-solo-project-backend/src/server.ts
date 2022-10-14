@@ -273,7 +273,7 @@ app.get("/userPremium/reviews", async (req, res) => {
 //This endpoint will post a new blog from a simple user
 app.post("/blogs", async (req, res) => {
   try {
-    const { title, location, blog, userId } =
+    const { title, location, blog, userId, userPremiumId } =
       req.body;
 
     let errors: string[] = [];
@@ -296,12 +296,13 @@ app.post("/blogs", async (req, res) => {
           title,
           location,
           blog,
-          User: { connect: { id: Number(userId) } }
+          userId,
+          userPremiumId
         },
         include: { reviews: true }
       });
 
-      res.send(blog);
+      res.send(newBlog);
     } else {
       res.status(400).send({ errors: errors });
     }
@@ -324,6 +325,7 @@ app.post("/reviews", async (req, res) => {
     userPremiumId: req.body.userPremiumId,
     userId: req.body.userId,
     rating: req.body.rating,
+    blogId: req.body.blogId
   };
   let errors: string[] = [];
 
@@ -347,6 +349,7 @@ app.post("/reviews", async (req, res) => {
           userPremiumId: reviews.userPremiumId,
           userId: reviews.userId,
           rating: reviews.rating,
+          blogId: reviews.blogId
         },
       });
       res.send(newReview);

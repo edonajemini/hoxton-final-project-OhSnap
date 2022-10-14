@@ -47,10 +47,10 @@ model Blog {
   location      String?
   createdAt     DateTime    @default(now())
   blog          String
-  userPremium   UserPremium @relation(fields: [userPremiumId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  userPremiumId Int
-  User          User        @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  userId        Int
+  userPremium   UserPremium? @relation(fields: [userPremiumId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userPremiumId Int?
+  User          User?        @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId        Int?
   reviews       Review[]
 }
 
@@ -63,10 +63,10 @@ model Emoji {
 
 model Review {
   id            Int         @id @default(autoincrement())
-  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  userId        Int
-  userPremium   UserPremium @relation(fields: [userPremiumId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  userPremiumId Int
+  user          User?        @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId        Int?
+  userPremium   UserPremium? @relation(fields: [userPremiumId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userPremiumId Int?
   rating        Int
   content       String
   createdAt     DateTime    @default(now())
