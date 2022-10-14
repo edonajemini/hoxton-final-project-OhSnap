@@ -318,6 +318,18 @@ app.get("/users", async (req, res) => {
   res.send(users);
 });
 
+//delete blog
+app.delete("/blogs/:id", async (req, res) => {
+  try {
+    const blog = await prisma.blog.delete({
+      where: { id: Number(req.params.id) },
+    });
+    res.send(blog);
+  } catch (error) {
+    res.status(400).send({ error: error });
+  }
+});
+
 //post reviews
 app.post("/reviews", async (req, res) => {
   const reviews = {
@@ -359,6 +371,17 @@ app.post("/reviews", async (req, res) => {
     }
   } else {
     res.status(400).send({ errors: errors });
+  }
+});
+//delete reviews
+app.delete("/reviews/:id", async (req, res) => {
+  try {
+    const review = await prisma.review.delete({
+      where: { id: Number(req.params.id) },
+    });
+    res.send(review);
+  } catch (error) {
+    res.status(400).send({ error: error });
   }
 });
 
