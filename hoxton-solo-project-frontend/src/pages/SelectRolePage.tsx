@@ -19,16 +19,16 @@ export function SelectRolePage() {
                 localStorage.role = "USER";
               }}
             >
-              Job Seeker
+              User
             </button>
           </Link>
           <Link to={"/sign-up"}>
             <button
               onClick={() => {
-                localStorage.role = "EMPLOYER";
+                localStorage.role = "USERPREMIUM";
               }}
             >
-              Employer
+              USER PREMIUM
             </button>
           </Link>
         </div>

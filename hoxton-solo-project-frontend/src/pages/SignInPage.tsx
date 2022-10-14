@@ -25,8 +25,8 @@ export function SignInPage({ signIn }: Props) {
           signIn(data);
           if (data.user.role === "USER") {
             navigate("/homepage");
-          } else if (data.user.role === "EMPLOYER") {
-            navigate("/employers");
+          } else if (data.user.role === "USERPREMIUM") {
+            navigate("/");
           } else {
             navigate("/homepage");
           }

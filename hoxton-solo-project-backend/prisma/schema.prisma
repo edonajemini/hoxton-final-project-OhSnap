@@ -26,6 +26,7 @@ model UserPremium {
   email    String   @unique
   password String
   name     String
+  role     String   @default("USERPREMIUM")
   profile  Profile?
   reviews  Review[]
   blog     Blog[]

@@ -77,7 +77,7 @@ export function CreateAccountPage({ signIn }: Props) {
 
           <p>
             By creating an account or logging in, you understand and agree to
-            GjejeVet's <a href="">Terms</a>. You also acknowledge our{" "}
+            OhSnap's <a href="">Terms</a>. You also acknowledge our{" "}
             <a href="">Cookie</a> and <a href="">Privacy</a> policies.
           </p>
 
