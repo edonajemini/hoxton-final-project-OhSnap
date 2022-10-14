@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import "./CreateAccountPage.css";
-import logo from "../assets/logo.png";
 import * as API from "../api";
 
 type Props = {
@@ -43,7 +42,7 @@ export function CreateAccountPage({ signIn }: Props) {
 
   return (
     <div className="sign-up-page">
-      <img src={logo} width="250px" alt="indeed-logo" />
+      {/* <img src={logo} width="250px" alt="indeed-logo" /> */}
       <div className="sign-up-form-container">
         <h3>Create your account</h3>
         <h4>

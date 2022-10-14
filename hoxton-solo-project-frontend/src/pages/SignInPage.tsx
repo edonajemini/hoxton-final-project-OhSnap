@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import "./SignInPage.css";
-import logo from "../assets/logo.png";
 import * as API from "../api"
 
 type Props = {
@@ -38,13 +37,12 @@ export function SignInPage({ signIn }: Props) {
 
   return (
     <div className="sign-in-page">
-      <img src={logo} width="250px" alt="gjejeVet-logo" />
+      {/* <img src={logo} width="250px" alt="gjejeVet-logo" /> */}
       <div className="form-container">
-        <h3>Ready to take the next step?</h3>
         <h4>Create an account or sign in.</h4>
         <p>
           By creating an account or logging in, you understand and agree to
-          GjejeVet's <a href="">Terms</a>. You also acknowledge our{" "}
+          OhSnap's <a href="">Terms</a>. You also acknowledge our{" "}
           <a href="">Cookie</a> and <a href="">Privacy</a> policies.
         </p>
         <form
