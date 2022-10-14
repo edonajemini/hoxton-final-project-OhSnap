@@ -1,0 +1,86 @@
+* {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .sign-in-page {
+    display: grid;
+    width: 100vw;
+    gap: 2rem;
+  }
+  
+  .sign-in-page img {
+    place-self: center;
+    border-radius: 20px;
+  }
+  
+  .form-container {
+    place-self: center;
+    display: grid;
+    width: 450px;
+    height: 550px;
+    border-radius: 10px;
+    border: 1px solid #e0e0e0;
+    padding: 1rem;
+    gap: 1rem;
+  }
+  
+  .form-container h3 {
+    font-size: 1.5rem;
+    font-weight: 500;
+  }
+  
+  .form-container h4 {
+    font-size: 1rem;
+    font-weight: 500;
+  }
+  
+  .form-container p {
+    font-size: 0.8rem;
+  }
+  
+  .form-section {
+    display: grid;
+    height: 140px;
+    gap: 1rem;
+    padding: 10px;
+  }
+  
+  .or-div {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .or-div hr {
+    width: 30%;
+    border: 1px solid #ccc;
+  }
+  
+  .create-account-section {
+    padding: 10px;
+    display: grid;
+    height: 140px;
+    gap: 1rem;
+  }
+  
+  label span {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: crimson;
+  }
+  
+  input {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 0.5rem;
+    transition: 500ms;
+  }
+  
+  input:hover {
+    border: 1px solid darkcyan;
+  }
+  

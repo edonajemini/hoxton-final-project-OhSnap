@@ -1,0 +1,95 @@
+* {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .sign-up-page {
+    display: grid;
+    width: 100vw;
+    gap: 2rem;
+  }
+  
+  .sign-up-page img {
+    place-self: center;
+  }
+  
+  .sign-up-form-container {
+    place-self: center;
+    display: grid;
+    grid-template-rows: 45px 40px auto auto auto auto;
+    width: 450px;
+    height: 450px;
+    border-radius: 10px;
+    border: 1px solid #e0e0e0;
+    padding: 1rem;
+    gap: 1rem;
+  }
+  
+  .sign-up-form-container h3 {
+    font-size: 1.7rem;
+    font-weight: 500;
+  }
+  
+  .sign-up-form-container h4 {
+    font-size: 1.1rem;
+    font-weight: 400;
+  }
+  
+  .sign-up-form-container h4 span {
+    color: darkcyan;
+    font-weight: 500;
+  }
+  
+  .sign-up-form-container p {
+    font-size: 0.8rem;
+  }
+  
+  .sign-up-form-container label {
+    font-size: 1.2rem;
+    font-weight: 500;
+  }
+  
+  label p {
+    font-size: 1rem;
+    font-weight: 400;
+    color: rgb(70, 70, 70);
+  }
+  
+  label span {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: crimson;
+  }
+  
+  .sign-up-form-section {
+    display: grid;
+    height: 140px;
+    gap: 1rem;
+  }
+  
+  input {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 0.5rem;
+    transition: 500ms;
+  }
+  
+  input:hover {
+    border: 1px solid darkcyan;
+  }
+  
+  .sign-up-btn {
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    background-color: royalblue;
+    color: white;
+    font-size: 1.15rem;
+    font-weight: 500;
+    transition: 500ms;
+  }
+  
+  .sign-up-btn:hover {
+    background-color: darkcyan;
+  }
+  
