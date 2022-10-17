@@ -7,6 +7,8 @@ import { SelectRolePage } from "./pages/SelectRolePage";
 import { Jobs } from "./types";
 import * as API from "./api";
 import { CreateAccountPage } from "./pages/CreateAccountPage";
+import { HomePage } from "./pages/HomePage";
+import { Navbar } from "./components/Navbar";
 
 function App() {
   const [jobs, setJobs] = useState<Jobs[]>([]);
@@ -36,8 +38,10 @@ function App() {
 
   return (
     <div className="App">
+      <Navbar />
       <Routes>
         <Route index element={<Navigate to="/homepage" />} />
+        <Route path="/homepage" element={<HomePage/>} />
         <Route path="/signin" element={<SignInPage signIn={signIn} />} />
         <Route path="/select-role" element={<SelectRolePage />} />
         <Route

@@ -1,3 +1,30 @@
 .App {
-  text-align: center;
+  text-align:justify;
+  font-family: Verdana (sans-serif);
+}
+.nav-bar{
+  display: grid;
+  grid-auto-flow: row;
+  width: 250px;
+  height: 800px;
+  position: fixed;
+  background-color: #231f20;
+}
+.navbar-items{
+  display: grid;
+  justify-content: center;
+  grid-auto-flow: row;
+  gap: 60px;
+  margin-bottom:90px;
+  list-style: none;
+  font-size: 20px;
+  
+}
+.navbar-items a{
+  text-decoration: none;
+  color: #fbfaf9;
+}
+.navbar-items .active{
+  color: #dec2bb;
+  font-weight: 700;
 }
