@@ -13,9 +13,11 @@
 .navbar-items{
   display: grid;
   justify-content: center;
+  align-content:flex-start;
   grid-auto-flow: row;
-  gap: 60px;
-  margin-bottom:90px;
+  gap: 50px;
+  padding-bottom: 200px;
+  padding-top: 70px;
   list-style: none;
   font-size: 20px;
   
