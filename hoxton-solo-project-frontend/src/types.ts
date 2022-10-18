@@ -9,30 +9,19 @@ export type SignInData = {
     name: string;
     role: string;
   };
-  export type Jobs = {
+  export type Blogs = {
       id: number;
       title: string;
-      location: string;
-      details: [];
-      jobSummary: string;
-      jobDescription: string;
+      intro: string;
+      reviews: [];
+      user?: string;
+      userPremium?: string;
       createdAt: string;
-      companyId: number;
+      image: string;
+      video:string;
       jobApplication: [];
     };
-  export type Company = {
-    id:number,
-    name:string,
-    imageURL: string,
-    rating: number,
-    about:string,
-    address: string,
-    email : string,
-    website :string,
-    reviews: []
-    jobs: []
-    };
-  
+
     export type Reviews = {
       id: number;
       companyId: number;

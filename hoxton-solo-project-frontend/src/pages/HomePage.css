@@ -4,3 +4,19 @@
     margin-right: auto;
     width: 50%;
 }
+.blogs-feed{
+    text-align: center;
+    margin-left: 400px;
+    margin-right: 100px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit);
+   gap: 20px;
+}
+.blogs{
+    height: 400px;
+    width: 800px;
+    background-color: #dec2bb;
+    padding: 50px;
+    border-radius: 5px;
+    color: black;
+}

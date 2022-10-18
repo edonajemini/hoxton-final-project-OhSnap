@@ -4,14 +4,14 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import "./App.css";
 import { SignInPage } from "./pages/SignInPage";
 import { SelectRolePage } from "./pages/SelectRolePage";
-import { Jobs } from "./types";
+import { Blogs } from "./types";
 import * as API from "./api";
 import { CreateAccountPage } from "./pages/CreateAccountPage";
 import { HomePage } from "./pages/HomePage";
 import { Navbar } from "./components/Navbar";
 
 function App() {
-  const [jobs, setJobs] = useState<Jobs[]>([]);
+  const [blogs, setBlogs] = useState<Blogs[]>([]);
   const [currentUser, setCurrentUser] = useState(null);
 
   function signIn(data: { user: any; token: string }) {
@@ -41,7 +41,10 @@ function App() {
       <Navbar />
       <Routes>
         <Route index element={<Navigate to="/homepage" />} />
-        <Route path="/homepage" element={<HomePage/>} />
+        <Route path="/homepage" element={<HomePage currentUser={currentUser}
+              signOut={signOut}
+              blogs={blogs}
+              setBlogs={setBlogs}/>} />
         <Route path="/signin" element={<SignInPage signIn={signIn} />} />
         <Route path="/select-role" element={<SelectRolePage />} />
         <Route

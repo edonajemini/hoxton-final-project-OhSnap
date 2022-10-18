@@ -45,7 +45,9 @@ model Profile {
 model Blog {
   id            Int         @id @default(autoincrement())
   title         String
-  location      String?
+  intro         String
+  image         String?
+  video         String?
   createdAt     DateTime    @default(now())
   blog          String
   userPremium   UserPremium? @relation(fields: [userPremiumId], references: [id], onDelete: Cascade, onUpdate: Cascade)
