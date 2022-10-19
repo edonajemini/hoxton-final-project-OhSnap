@@ -16,8 +16,6 @@ model User {
   password String
   name     String
   role     String   @default("USER")
-  profile  Profile?
-  blog     Blog[]
   reviews  Review[]
 }
 
@@ -27,34 +25,24 @@ model UserPremium {
   password String
   name     String
   role     String   @default("USERPREMIUM")
-  profile  Profile?
   reviews  Review[]
   blog     Blog[]
   emoji    Emoji[]
 }
 
-model Profile {
-  id            Int         @id @default(autoincrement())
-  bio           String
-  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  userId        Int         @unique
-  userPremium   UserPremium @relation(fields: [userPremiumId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  userPremiumId Int         @unique
-}
-
 model Blog {
-  id            Int         @id @default(autoincrement())
+  id            Int          @id @default(autoincrement())
   title         String
   intro         String
   image         String?
   video         String?
-  createdAt     DateTime    @default(now())
+  createdAt     DateTime     @default(now())
   blog          String
   userPremium   UserPremium? @relation(fields: [userPremiumId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   userPremiumId Int?
-  User          User?        @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  userId        Int?
   reviews       Review[]
+  saved         Boolean
+  liked         Boolean
 }
 
 model Emoji {
@@ -65,14 +53,14 @@ model Emoji {
 }
 
 model Review {
-  id            Int         @id @default(autoincrement())
+  id            Int          @id @default(autoincrement())
   user          User?        @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   userId        Int?
   userPremium   UserPremium? @relation(fields: [userPremiumId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   userPremiumId Int?
-  rating        Int
   content       String
-  createdAt     DateTime    @default(now())
-  blog          Blog        @relation(fields: [blogId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  createdAt     DateTime     @default(now())
+  blog          Blog         @relation(fields: [blogId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   blogId        Int
 }
+

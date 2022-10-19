@@ -134,7 +134,16 @@ app.get("/blog/:title", async (req, res) => {
     res.status(500).send({ error: error.message });
   }
 });
-
+//saved blogs
+app.get("/savedBlogs", async (req, res) => {
+  const blogs = await prisma.blog.findMany({
+    where: {
+      saved: true,
+    },
+    include: { reviews: true, userPremium: true },
+  });
+  res.send(blogs);
+})
 
 //Get all blogs
 app.get("/blogs", async (req, res) => {
@@ -174,7 +183,7 @@ app.get("/users/:id", async (req, res) => {
 
     const user = await prisma.user.findUnique({
       where: { id: Number(id) },
-      include: { reviews: true, blog: true },
+      include: { reviews: true},
     });
     if (user) {
       res.send(user);
@@ -270,49 +279,54 @@ app.get("/userPremium/reviews", async (req, res) => {
   }
 });
 
-//This endpoint will post a new blog from a simple user
-// app.post("/blogs", async (req, res) => {
-//   try {
-//     const { title, location, blog, userId, userPremiumId } =
-//       req.body;
+// This endpoint will post a new blog 
+app.post("/blogs", async (req, res) => {
+  try {
+    const { title,intro,blog, image,video, userPremiumId ,saved,liked} =
+      req.body;
 
-//     let errors: string[] = [];
+    let errors: string[] = [];
 
-//     if (typeof title !== "string") {
-//       errors.push("Add a proper Title!");
-//     }
-//     if (typeof location !== "string") {
-//       errors.push("Add a proper Location!");
-//     }
-//     if (typeof blog !== "string") {
-//       errors.push("Add a proper Text");
-//     }
-//     if (typeof userId !== "number") {
-//       errors.push("Add a proper user ID");
-//     }
-//     if (errors.length === 0) {
-//       const newBlog = await prisma.blog.create({
-//         data: {
-//           // title,
-//           // intro,
-//           // image,
-//           // video,
-//           // blog,
-//           // userId,
-//           // userPremiumId
-//         },
-//         include: { reviews: true }
-//       });
+    if (typeof title !== "string") {
+      errors.push("Add a proper Title!");
+    }
+    if (typeof location !== "string") {
+      errors.push("Add a proper Location!");
+    }
+    if (typeof blog !== "string") {
+      errors.push("Add a proper Text");
+    }
+    if (typeof userPremiumId !== "number") {
+      errors.push("Add a proper user ID");
+    }
+    if (errors.length === 0) {
+      const newBlog = await prisma.blog.create({
+        data: {
+          title: blog.title,
+          intro: blog.intro,
+          blog:blog.blog,
+          image:blog.image,
+          video:blog.video,
+          saved:false,
+          liked:false,
+          userPremium: {
+            connect: {
+              id: Number(req.body.userPremiumId),
+            },
+          },
+        },
+        include: { reviews: true, userPremium:true }
+      });
 
-//       res.send(newBlog);
-//     } else {
-//       res.status(400).send({ errors: errors });
-//     }
-//   } catch (error) {
-//     // @ts-ignore
-//     res.status(500).send({ error: error.message });
-//   }
-// });
+      res.send(newBlog);
+    } else {
+      res.status(400).send({ errors: errors });
+    }
+  } catch (error) {
+    // @ts-ignore
+    res.status(500).send({ error: error.message });
+  }
+});
 
 //get all users
 app.get("/users", async (req, res) => {
@@ -337,7 +351,6 @@ app.post("/reviews", async (req, res) => {
   const reviews = {
     content: req.body.content,
     userPremiumId: req.body.userPremiumId,
-    userId: req.body.userId,
     rating: req.body.rating,
     blogId: req.body.blogId
   };
@@ -352,17 +365,12 @@ app.post("/reviews", async (req, res) => {
   if (typeof req.body.userId !== "number") {
     errors.push("Add a proper user Id");
   }
-  if (typeof req.body.rating !== "number") {
-    errors.push("Add a proper rating");
-  }
   if (errors.length === 0) {
     try {
       const newReview = await prisma.review.create({
         data: {
           content: reviews.content,
           userPremiumId: reviews.userPremiumId,
-          userId: reviews.userId,
-          rating: reviews.rating,
           blogId: reviews.blogId
         },
       });

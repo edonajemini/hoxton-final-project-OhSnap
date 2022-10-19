@@ -17,16 +17,6 @@ CREATE TABLE "UserPremium" (
 );
 
 -- CreateTable
-CREATE TABLE "Profile" (
-    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    "bio" TEXT NOT NULL,
-    "userId" INTEGER NOT NULL,
-    "userPremiumId" INTEGER NOT NULL,
-    CONSTRAINT "Profile_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE CASCADE ON UPDATE CASCADE,
-    CONSTRAINT "Profile_userPremiumId_fkey" FOREIGN KEY ("userPremiumId") REFERENCES "UserPremium" ("id") ON DELETE CASCADE ON UPDATE CASCADE
-);
-
--- CreateTable
 CREATE TABLE "Blog" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "title" TEXT NOT NULL,
@@ -36,9 +26,9 @@ CREATE TABLE "Blog" (
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "blog" TEXT NOT NULL,
     "userPremiumId" INTEGER,
-    "userId" INTEGER,
-    CONSTRAINT "Blog_userPremiumId_fkey" FOREIGN KEY ("userPremiumId") REFERENCES "UserPremium" ("id") ON DELETE CASCADE ON UPDATE CASCADE,
-    CONSTRAINT "Blog_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE CASCADE ON UPDATE CASCADE
+    "saved" BOOLEAN NOT NULL,
+    "liked" BOOLEAN NOT NULL,
+    CONSTRAINT "Blog_userPremiumId_fkey" FOREIGN KEY ("userPremiumId") REFERENCES "UserPremium" ("id") ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- CreateTable
@@ -54,7 +44,6 @@ CREATE TABLE "Review" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "userId" INTEGER,
     "userPremiumId" INTEGER,
-    "rating" INTEGER NOT NULL,
     "content" TEXT NOT NULL,
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "blogId" INTEGER NOT NULL,
@@ -68,9 +57,3 @@ CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "UserPremium_email_key" ON "UserPremium"("email");
-
--- CreateIndex
-CREATE UNIQUE INDEX "Profile_userId_key" ON "Profile"("userId");
-
--- CreateIndex
-CREATE UNIQUE INDEX "Profile_userPremiumId_key" ON "Profile"("userPremiumId");

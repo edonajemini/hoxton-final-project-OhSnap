@@ -49,3 +49,23 @@ a {
 a{
     color: white;
 }
+.blog-search{
+    margin-left: 500px;
+    margin-top: 50px;
+    margin-bottom: 100px;
+}
+.blog-search input{
+    width: 600px;
+    margin-right: 5px;
+}
+.blog-search-btn{
+    width: 100px;
+    height: 35px;
+    border: thin solid pink;
+    border-radius: 5px;
+    color: white;
+    background-color: #231f20;
+}
+.blog-search input:focus{
+    outline-color: #231f20;
+}

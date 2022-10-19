@@ -25,7 +25,8 @@ export function HomePage({ blogs, setBlogs, currentUser, signOut }: Props) {
           <Link to={"/famouspeople"}>Famous People</Link>
         </ul>
       </ul>
-      <SearchBar setBlogs={setBlogs } blogs={blogs}/>
+      <SearchBar/>
+      <Post blogs={blogs} setBlogs={setBlogs} />
     </div>
   );
 }
