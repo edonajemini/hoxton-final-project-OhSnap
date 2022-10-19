@@ -25,9 +25,10 @@ CREATE TABLE "Blog" (
     "video" TEXT,
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "blog" TEXT NOT NULL,
-    "userPremiumId" INTEGER,
+    "userPremiumId" INTEGER NOT NULL,
     "saved" BOOLEAN NOT NULL,
     "liked" BOOLEAN NOT NULL,
+    "category" TEXT NOT NULL,
     CONSTRAINT "Blog_userPremiumId_fkey" FOREIGN KEY ("userPremiumId") REFERENCES "UserPremium" ("id") ON DELETE CASCADE ON UPDATE CASCADE
 );
 

@@ -282,7 +282,7 @@ app.get("/userPremium/reviews", async (req, res) => {
 // This endpoint will post a new blog 
 app.post("/blogs", async (req, res) => {
   try {
-    const { title,intro,blog, image,video, userPremiumId ,saved,liked} =
+    const { title,intro,blog, image,video, userPremiumId,category ,saved,liked} =
       req.body;
 
     let errors: string[] = [];
@@ -290,9 +290,7 @@ app.post("/blogs", async (req, res) => {
     if (typeof title !== "string") {
       errors.push("Add a proper Title!");
     }
-    if (typeof location !== "string") {
-      errors.push("Add a proper Location!");
-    }
+  
     if (typeof blog !== "string") {
       errors.push("Add a proper Text");
     }
@@ -307,6 +305,7 @@ app.post("/blogs", async (req, res) => {
           blog:blog.blog,
           image:blog.image,
           video:blog.video,
+          category:blog.category,
           saved:false,
           liked:false,
           userPremium: {
