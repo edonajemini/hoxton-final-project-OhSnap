@@ -6,17 +6,26 @@
 }
 .blogs-feed{
     text-align: center;
-    margin-left: 400px;
-    margin-right: 100px;
+    margin-left: 370px;
     display: grid;
-    grid-template-columns: repeat(auto-fit);
-   gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(450px, 150px));
+   gap: 50px;
 }
 .blogs{
     height: 400px;
-    width: 800px;
-    background-color: #dec2bb;
-    padding: 50px;
+    width: 300px;
+    background-color: #231f20;
+    color: #dec2bb;
     border-radius: 5px;
-    color: black;
+    display: grid;
+    grid-auto-flow: row;
+    width: 400px;
+    padding: 20px;
 }
+.blogs img{
+    width: 400px;
+    height: 200px;
+}
+a {
+    text-decoration:none ;
+  }

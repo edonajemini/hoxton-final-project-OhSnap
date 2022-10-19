@@ -9,10 +9,10 @@ export function Navbar(){
           <NavLink to={"/homepage"}>Home</NavLink>
         </li>
         <li className="find-job-navbar-list-left-two">
-          <NavLink to="/post">Post</NavLink>
+          <NavLink to="/categories">Categories</NavLink>
         </li>
         <li className="find-job-navbar-list-left-two">
-          <NavLink to="/categories">Categories</NavLink>
+          <NavLink to="/post">Post</NavLink>
         </li>
         <li className="find-job-navbar-list-left-two">
           <NavLink to="/profile">Profile</NavLink>
