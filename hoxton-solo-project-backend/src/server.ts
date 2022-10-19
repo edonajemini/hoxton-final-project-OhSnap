@@ -29,11 +29,11 @@ function verifyToken(token: string) {
 async function getCurrentUser(token: string) {
   const decoded = verifyToken(token);
 
-  const user = await prisma.user.findUnique({
+  const userPremium = await prisma.userPremium.findUnique({
     where: { id: decoded },
   });
 
-  return user;
+  return userPremium;
 }
 
 //SignIn user
@@ -41,7 +41,7 @@ app.post("/sign-up", async (req, res) => {
   try {
     const { email, password, name, role } = req.body;
 
-    const existingUser = await prisma.user.findUnique({
+    const existingUser = await prisma.userPremium.findUnique({
       where: { email },
     });
 
@@ -50,7 +50,7 @@ app.post("/sign-up", async (req, res) => {
     } else {
       const hashedPassword = bcrypt.hashSync(password);
 
-      const user = await prisma.user.create({
+      const userPremium = await prisma.userPremium.create({
         data: {
           email,
           password: hashedPassword,
@@ -59,9 +59,9 @@ app.post("/sign-up", async (req, res) => {
         },
       });
 
-      const token = generateToken(user.id);
+      const token = generateToken(userPremium.id);
 
-      res.send({ user, token });
+      res.send({ userPremium, token });
     }
   } catch (error) {
     // @ts-ignore
@@ -74,23 +74,23 @@ app.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    const user = await prisma.user.findUnique({
+    const userPremium = await prisma.userPremium.findUnique({
       where: { email },
     });
 
-    if (!user) {
+    if (!userPremium) {
       return res.status(400).send({ error: "Invalid credentials." });
     }
 
-    const valid = bcrypt.compareSync(password, user.password);
+    const valid = bcrypt.compareSync(password, userPremium.password);
 
     if (!valid) {
       return res.status(400).json({ error: "Invalid credentials." });
     }
 
-    const token = generateToken(user.id);
+    const token = generateToken(userPremium.id);
 
-    res.send({ user, token });
+    res.send({ userPremium, token });
   } catch (error) {
     // @ts-ignore
     res.status(500).send({ error: error.message });
@@ -105,9 +105,9 @@ app.get("/validate", async (req, res) => {
     if (!token) {
       return res.status(400).send({ error: "You are not signed in!" });
     } else {
-      const user = await getCurrentUser(token);
-      if (user) {
-        res.send({ user, token: generateToken(user.id) });
+      const userPremium = await getCurrentUser(token);
+      if (userPremium) {
+        res.send({ userPremium, token: generateToken(userPremium.id) });
       } else {
         res.status(400).send({ error: "Please try to sign in again!" });
       }
@@ -119,13 +119,13 @@ app.get("/validate", async (req, res) => {
 });
 
 //Get all BLOGS searched by tittle
-app.get("/blog/:title", async (req, res) => {
+app.get("/blogs/blog/:title", async (req, res) => {
   try {
     const { title } = req.params;
 
     const blogs = await prisma.blog.findMany({
       where: { title: { contains: title } },
-      include: { reviews: true },
+      include: { reviews: true, userPremium: true },
     });
 
     res.send(blogs);
@@ -366,6 +366,11 @@ app.post("/blogs", async (req, res) => {
 app.get("/users", async (req, res) => {
   const users = await prisma.user.findMany();
   res.send(users);
+});
+//get all premium users
+app.get("/premiumusers", async (req, res) => {
+  const userPremium = await prisma.userPremium.findMany();
+  res.send(userPremium);
 });
 
 //delete blog

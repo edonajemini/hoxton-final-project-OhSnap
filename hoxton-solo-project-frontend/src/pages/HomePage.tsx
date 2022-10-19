@@ -1,6 +1,7 @@
 import { SetStateAction } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import homepagequote from "../assets/homepagequote.png";
+import { Navbar } from "../components/Navbar";
 import { Post } from "../components/Post";
 import { SearchBar } from "../components/SearchBar";
 import { Blogs } from "../types";
@@ -14,6 +15,8 @@ type Props = {
 export function HomePage({ blogs, setBlogs, currentUser, signOut }: Props) {
   return (
     <div className="HomePage">
+        <Navbar currentUser={currentUser}
+              signOut={signOut}/>
       <ul className="categories">
         <li>Choose your favorite categories</li>
         <ul className="categories-items">
@@ -25,7 +28,7 @@ export function HomePage({ blogs, setBlogs, currentUser, signOut }: Props) {
           <Link to={"/celebrity"}>Celebrity</Link>
         </ul>
       </ul>
-      <SearchBar/>
+      <SearchBar setBlogs={setBlogs}/>
       <Post blogs={blogs} setBlogs={setBlogs} />
     </div>
   );

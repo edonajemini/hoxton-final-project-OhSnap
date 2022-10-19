@@ -46,10 +46,6 @@ function App() {
 
   return (
     <div className="App">
-      <Navbar currentUser={currentUser}
-              signOut={signOut}
-              blogs={blogs}
-              setBlogs={setBlogs}/>
       <Routes>
         <Route index element={<Navigate to="/homepage" />} />
         <Route path="/homepage" element={<HomePage currentUser={currentUser}
