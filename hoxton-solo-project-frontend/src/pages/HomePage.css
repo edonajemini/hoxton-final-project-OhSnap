@@ -102,3 +102,9 @@ a{
     color: white;
     background-color: #231f20;
 }
+.post-blog{
+    margin: 50px 300px;
+    display: grid;
+    width: 400px;
+    gap: 2rem;
+}

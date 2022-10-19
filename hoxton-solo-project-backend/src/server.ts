@@ -232,6 +232,25 @@ app.get("/usersPremium/:id", async (req, res) => {
     res.status(500).send({ error: error.message });
   }
 });
+//Get userpremiums by name
+app.get("/userPremium/:name", async (req, res) => {
+  try {
+    const { name } = req.params;
+
+    const userPremium = await prisma.userPremium.findUnique({
+      where: { name: name },
+      include: { reviews: true, blog: true },
+    });
+    if (userPremium) {
+      res.send(userPremium);
+    } else {
+      res.status(404).send({ error: "UserPremium not found!" });
+    }
+  } catch (error) {
+    // @ts-ignore
+    res.status(500).send({ error: error.message });
+  }
+});
 
 //Get all reviews for a blog
 app.get("/blogs/:id/reviews", async (req, res) => {

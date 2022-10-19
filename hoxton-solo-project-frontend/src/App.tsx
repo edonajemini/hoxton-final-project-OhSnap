@@ -16,6 +16,7 @@ import { Socialmedia } from "./pages/Socialmedia";
 import { Books } from "./pages/Books";
 import { Movies } from "./pages/Movies";
 import { Celebrity } from "./pages/Celebrity";
+import { PostBlog } from "./pages/PostBlog";
 
 function App() {
   const [blogs, setBlogs] = useState<Blogs[]>([]);
@@ -69,6 +70,8 @@ function App() {
               setBlogs={setBlogs} />} />
         <Route path="/celebrity" element={<Celebrity blogs={blogs}
               setBlogs={setBlogs} />} />
+        <Route path="/post" element={<PostBlog blogs={blogs}
+        setBlogs={setBlogs} signOut={signOut} currentUser={currentUser}   />} />
         <Route
           path="/sign-up"
           element={<CreateAccountPage signIn={signIn} />}
