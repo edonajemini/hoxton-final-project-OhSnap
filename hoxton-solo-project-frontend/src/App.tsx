@@ -9,6 +9,7 @@ import * as API from "./api";
 import { CreateAccountPage } from "./pages/CreateAccountPage";
 import { HomePage } from "./pages/HomePage";
 import { Navbar } from "./components/Navbar";
+import { BlogDetails } from "./pages/BlogDetails";
 
 function App() {
   const [blogs, setBlogs] = useState<Blogs[]>([]);
@@ -38,7 +39,10 @@ function App() {
 
   return (
     <div className="App">
-      <Navbar />
+      <Navbar currentUser={currentUser}
+              signOut={signOut}
+              blogs={blogs}
+              setBlogs={setBlogs}/>
       <Routes>
         <Route index element={<Navigate to="/homepage" />} />
         <Route path="/homepage" element={<HomePage currentUser={currentUser}
@@ -50,6 +54,15 @@ function App() {
         <Route
           path="/sign-up"
           element={<CreateAccountPage signIn={signIn} />}
+        />
+        <Route
+          path="/blog-detail/:id"
+          element={
+            <BlogDetails
+              blogs={blogs}
+              setBlogs={setBlogs}
+            />
+          }
         />
 
       </Routes>

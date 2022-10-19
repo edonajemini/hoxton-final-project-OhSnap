@@ -1,3 +1,6 @@
+.body{
+    background-color:pink ;
+}
 .homepagequote {
     display: block;
     margin-left: 450px;
@@ -8,24 +11,41 @@
     text-align: center;
     margin-left: 370px;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(450px, 150px));
+    grid-auto-flow: row;
    gap: 50px;
 }
 .blogs{
     height: 400px;
-    width: 300px;
-    background-color: #231f20;
-    color: #dec2bb;
+    background-color: #fafafa;
+    color: black;
     border-radius: 5px;
     display: grid;
     grid-auto-flow: row;
-    width: 400px;
+    width: 800px;
     padding: 20px;
 }
 .blogs img{
     width: 400px;
     height: 200px;
+    border-radius: 5px;
 }
 a {
     text-decoration:none ;
   }
+.blogs-detail{
+    margin: 50px 300px;
+}
+.user-name{
+    margin-left: 300px;
+}
+
+.categories-items {
+    margin-left: 300px;
+    display: grid;
+    grid-auto-flow: column;
+    background-color: pink;
+    padding: 5px;
+}
+a{
+    color: white;
+}

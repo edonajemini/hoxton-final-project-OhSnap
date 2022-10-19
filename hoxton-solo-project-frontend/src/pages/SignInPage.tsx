@@ -37,13 +37,12 @@ export function SignInPage({ signIn }: Props) {
 
   return (
     <div className="sign-in-page">
-      {/* <img src={logo} width="250px" alt="gjejeVet-logo" /> */}
       <div className="form-container">
         <h4>Create an account or sign in.</h4>
         <p>
           By creating an account or logging in, you understand and agree to
           OhSnap's <a href="">Terms</a>. You also acknowledge our{" "}
-          <a href="">Cookie</a> and <a href="">Privacy</a> policies.
+          <a href="">Cookies</a> and <a href="">Privacy</a> policies.
         </p>
         <form
           className="form-section"
@@ -89,12 +88,3 @@ export function SignInPage({ signIn }: Props) {
   );
 }
 
-// const [currentJobDetail, setCurrentJobDetail] = useState<Job>("");
-
-// useEffect(() => {
-//      setCurrentJobDetail(jobs[0])
-// }, []);
-
-// useEffect(() => {
-
-// }, [currentJobDetail]);

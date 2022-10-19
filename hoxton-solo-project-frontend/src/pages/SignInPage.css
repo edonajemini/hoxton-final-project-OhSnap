@@ -9,11 +9,7 @@
     gap: 2rem;
   }
   
-  .sign-in-page img {
-    place-self: center;
-    border-radius: 20px;
-  }
-  
+
   .form-container {
     place-self: center;
     display: grid;
@@ -23,6 +19,8 @@
     border: 1px solid #e0e0e0;
     padding: 1rem;
     gap: 1rem;
+    background-color: #dec2bb7b;
+    margin-top: 100px;
   }
   
   .form-container h3 {
@@ -53,20 +51,21 @@
     justify-content: center;
     align-items: center;
     gap: 1rem;
+    
   }
   
   .or-div hr {
     width: 30%;
     border: 1px solid #ccc;
+    
   }
-  
   .create-account-section {
     padding: 10px;
     display: grid;
     height: 140px;
     gap: 1rem;
   }
-  
+
   label span {
     font-size: 1.2rem;
     font-weight: 700;
@@ -78,9 +77,10 @@
     border-radius: 5px;
     padding: 0.5rem;
     transition: 500ms;
+    
   }
   
   input:hover {
-    border: 1px solid darkcyan;
+    border: 1px solid pink;
   }
   

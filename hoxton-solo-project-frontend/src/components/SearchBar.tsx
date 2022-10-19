@@ -1,6 +1,10 @@
-import { useEffect } from "react";
-
-export function SearchBar(){
+import { SetStateAction, useEffect } from "react";
+import { Blogs } from "../types";
+type Props = {
+  blogs:any,
+  setBlogs: React.Dispatch<SetStateAction<Blogs[]>>;
+};
+export function SearchBar({setBlogs, blogs}:Props){
     function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
         const form = event.currentTarget;
