@@ -23,6 +23,7 @@
     grid-auto-flow: row;
     width: 800px;
     padding: 20px;
+    margin-top: 50px;
 }
 .blogs img{
     width: 400px;
@@ -52,7 +53,7 @@ a{
 .blog-search{
     margin-left: 500px;
     margin-top: 50px;
-    margin-bottom: 100px;
+    margin-bottom: 50px;
 }
 .blog-search input{
     width: 600px;
@@ -68,4 +69,36 @@ a{
 }
 .blog-search input:focus{
     outline-color: #231f20;
+}
+.category{
+    margin-left: 300px;
+    position: fixed;
+    margin-top: 20px;
+    background-color: rgba(255, 192, 203, 0.556);
+    padding: 5px;
+    font-weight: 400;
+}
+.blog-btns{
+    display: grid;
+    grid-auto-flow: column;
+    width: 100px;
+    gap: 10px;
+    justify-self: flex-end;
+    margin-right: 300px;
+}
+.save-btn{
+    width: 60px;
+    height: 35px;
+    border: thin solid pink;
+    border-radius: 5px;
+    color: white;
+    background-color: #231f20;
+}
+.like-btn{
+    width: 60px;
+    height: 35px;
+    border: thin solid pink;
+    border-radius: 5px;
+    color: white;
+    background-color: #231f20;
 }

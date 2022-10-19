@@ -42,6 +42,10 @@ if (blog === null) return <h2>Loading... </h2>;
             <div className="blogs-detail">
             <h3><u>{blog.title}</u></h3>
             <p>{blog.blog}</p>
+            <div className="blog-btns">
+                <button className="save-btn">Save</button>
+                <button className="like-btn">Like</button>
+                </div>
             </div>
             </div>
           </div>

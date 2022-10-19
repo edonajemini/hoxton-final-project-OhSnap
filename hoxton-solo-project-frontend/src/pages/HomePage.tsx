@@ -22,7 +22,7 @@ export function HomePage({ blogs, setBlogs, currentUser, signOut }: Props) {
           <Link to={"/movies"}>Movies</Link>
           <Link to={"/books"}>Books</Link>
           <Link to={"/socialmedia"}>Social Media</Link>
-          <Link to={"/Celebrity"}>Celebrity</Link>
+          <Link to={"/celebrity"}>Celebrity</Link>
         </ul>
       </ul>
       <SearchBar/>

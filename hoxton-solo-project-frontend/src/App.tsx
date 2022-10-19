@@ -10,6 +10,12 @@ import { CreateAccountPage } from "./pages/CreateAccountPage";
 import { HomePage } from "./pages/HomePage";
 import { Navbar } from "./components/Navbar";
 import { BlogDetails } from "./pages/BlogDetails";
+import { General } from "./pages/General";
+import { Politics } from "./pages/Politics";
+import { Socialmedia } from "./pages/Socialmedia";
+import { Books } from "./pages/Books";
+import { Movies } from "./pages/Movies";
+import { Celebrity } from "./pages/Celebrity";
 
 function App() {
   const [blogs, setBlogs] = useState<Blogs[]>([]);
@@ -51,6 +57,18 @@ function App() {
               setBlogs={setBlogs}/>} />
         <Route path="/signin" element={<SignInPage signIn={signIn} />} />
         <Route path="/select-role" element={<SelectRolePage />} />
+        <Route path="/general" element={<General blogs={blogs}
+              setBlogs={setBlogs}/>} />
+        <Route path="/politics" element={<Politics blogs={blogs}
+              setBlogs={setBlogs} />} />
+        <Route path="/socialmedia" element={<Socialmedia blogs={blogs}
+              setBlogs={setBlogs} />} />
+        <Route path="/books" element={<Books blogs={blogs}
+              setBlogs={setBlogs} />} />
+        <Route path="/movies" element={<Movies blogs={blogs}
+              setBlogs={setBlogs} />} />
+        <Route path="/celebrity" element={<Celebrity blogs={blogs}
+              setBlogs={setBlogs} />} />
         <Route
           path="/sign-up"
           element={<CreateAccountPage signIn={signIn} />}

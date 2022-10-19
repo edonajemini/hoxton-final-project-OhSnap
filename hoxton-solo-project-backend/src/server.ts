@@ -134,6 +134,22 @@ app.get("/blog/:title", async (req, res) => {
     res.status(500).send({ error: error.message });
   }
 });
+//Get all BLOGS filtered by category
+app.get("/blogs/:category", async (req, res) => {
+  try {
+    const { category } = req.params;
+
+    const blogs = await prisma.blog.findMany({
+      where: { category: category },
+      include: { reviews: true },
+    });
+
+    res.send(blogs);
+  } catch (error) {
+    // @ts-ignore
+    res.status(500).send({ error: error.message });
+  }
+});
 //saved blogs
 app.get("/savedBlogs", async (req, res) => {
   const blogs = await prisma.blog.findMany({
