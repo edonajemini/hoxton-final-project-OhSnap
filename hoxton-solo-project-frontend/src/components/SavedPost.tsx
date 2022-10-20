@@ -1,28 +1,21 @@
 import { SetStateAction, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { timeElapsed } from "../api";
-import { Blogs } from "../types";
+import { Blogs, User } from "../types";
 type Props ={
-  currentUser: any;
-  signOut: () => void;
-  blogs: any,
+  currentUser: User;
+  blog: Blogs,
   setBlogs: React.Dispatch<SetStateAction<Blogs[]>>
 }
-export function Post({blogs, setBlogs, currentUser, }:Props){
-    useEffect(() => {
-        fetch("http://localhost:4000/blogs")
-          .then((resp) => resp.json())
-          .then((blogsFromServer) => setBlogs(blogsFromServer));
-      }, []);
+export function SavedPost({blog, setBlogs, currentUser, }:Props){
+   
     return(
     <>
     <div className="blogs-feed">
-      
-          {blogs.reverse().map((blog:any) => (
               <>
               <Link to={`/blog-detail/${blog.id}`}>
               <div className="blogs">
-                <h2>{blog.categories}</h2>
+                <h2>{blog.category}</h2>
                 <h3><u>{blog.title}</u></h3>
                 <img src={blog.image} width="200px" />
                 <p>{blog.intro}</p>
@@ -60,7 +53,6 @@ export function Post({blogs, setBlogs, currentUser, }:Props){
               </button>
                 </div>
               </>
-            ))}
             </div>
     </>
     )

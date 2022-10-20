@@ -5,13 +5,11 @@ import "./SelectRolePage.css";
 export function SelectRolePage() {
   return (
     <div className="role-page">
-      {/* <img src={logo} width="250px" alt="logo" /> */}
       <div className="role-form-container">
         <div className="welcome-image">
-          {/* <img src={welcome} width="200px" alt="welcome-logo" /> */}
         </div>
         <div className="roles-section">
-          <h5>Create an account for tools to help you</h5>
+          <h5>Create an account</h5>
 
           <Link to={"/sign-up"}>
             <button

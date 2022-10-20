@@ -55,7 +55,7 @@ export function PostBlog({ blogs, setBlogs, currentUser, signOut }: Props) {
               fetch("http://localhost:4000/blogs")
                 .then((resp) => resp.json())
                 .then((blogsFromServer) => setBlogs(blogsFromServer));
-                navigate("/employers");
+                navigate("/homepage");
             })
         }, 500);
         }}

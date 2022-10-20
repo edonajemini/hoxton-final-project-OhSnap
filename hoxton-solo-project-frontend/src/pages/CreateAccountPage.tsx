@@ -12,29 +12,33 @@ export function CreateAccountPage({ signIn }: Props) {
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    const form = event.currentTarget;
+    const form = event.target;
     const email = localStorage.newUserEmail;
     const name = form.fullName.value;
     const password = form.password.value;
-    const role = localStorage.role;
 
-    if (email && password && name) {
-      API.signup({ email, password, name, role }).then((data) => {
-        if (data.error) {
-          alert(data.error);
-        } else {
-          //sign them in
-          signIn(data);
-          if (role === "USER") {
-            navigate("/homepage");
-          } else if (role === "USERPREMIUM") {
-            navigate("/homepage");
-          } else {
-            navigate("/homepage");
-          }
-        }
-      });
+    const newUser ={
+      email: email,
+      name: name,
+      password: password
     }
+    if (email && password && name) {
+      fetch("http://localhost:4000/signup", {
+      method: "post",
+      headers:{
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(newUser)      
+    }).then((res)=>res.json())
+      .then((data)=>{
+        if(data.error){
+          alert(data.error)
+        }else{
+          signIn(data)
+        }
+      })
+    }
+    // navigate("/homepage");
 
     localStorage.removeItem("newUserEmail");
     localStorage.removeItem("role");

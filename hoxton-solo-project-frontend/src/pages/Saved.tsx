@@ -1,27 +1,35 @@
-import { SetStateAction } from "react";
-import { Post } from "../components/Post";
-import { Blogs } from "../types";
+import React, { SetStateAction, useEffect, useState } from 'react'
+import { signup } from '../api'
+import { Navbar } from '../components/Navbar'
+import { Post } from '../components/Post'
+import { SavedPost } from '../components/SavedPost'
+import { Blogs, User } from '../types'
 
 type Props = {
-    currentUser: any;
-    signOut: () => void;
-    blogs: any;
-    setBlogs: React.Dispatch<SetStateAction<Blogs[]>>;
-  };
+  currentUser: any;
+  signOut: () => void;
+  blogs: any;
+  setBlogs: React.Dispatch<SetStateAction<Blogs[]>>;
+};
 
-export default function Saved( { blogs, setBlogs, currentUser, signOut }: Props) {
-    return (
-      <main className='main'>
-          <div className='my-blogs'>
-              <h1 className='my-blog-h1'>My Posts</h1>
-              {/* {posts.reverse().filter(post => post.userId === currentUser.id).map((post) => (
-                <ItemRow currentUser={currentUser} post={post} setPosts={setPosts}/>
-            ))} */}
-            {/* {blogs.filter(blog => blog.userId === currentUser.id).map((blog)=>(
-                <Post currentUser={currentUser} blogs={blogs} setBlogs={setBlogs} signOut={signOut}/>
-            
-            ))} */}
-          </div>
-      </main>
-    )
-  }
+export default function Saved( { blogs, setBlogs, currentUser,signOut }: Props) {
+  const [savedBlogs, setsavedBlogs] = useState<Blogs[]>([]);
+
+    useEffect(() => {
+        fetch(`http://localhost:4000/savedBlogs`)
+        .then(r => r.json())
+        .then(savedBlogsFromServer => setsavedBlogs(savedBlogsFromServer) )
+    }, [])
+
+
+  return (
+    <main className='main'>
+        <div className='saved-posts'>
+            <h1 className='saved-posts-h1'>Saved Posts</h1>
+            {savedBlogs.reverse().filter(blog => blog.saved === true).map((blog) => (
+                <SavedPost currentUser={currentUser} blog={blog} setBlogs={setBlogs}/>
+            ))}
+        </div>
+    </main>
+  )
+}

@@ -19,6 +19,7 @@ import { Celebrity } from "./pages/Celebrity";
 import { PostBlog } from "./pages/PostBlog";
 import Saved from "./pages/Saved";
 import { Profile } from "./pages/Profile";
+import { Review } from "./pages/Review";
 
 function App() {
   const navigate = useNavigate();
@@ -80,13 +81,17 @@ function App() {
         <Route path="/celebrity" element={<Celebrity blogs={blogs}
               setBlogs={setBlogs} />} />
         <Route path="/saved" element={<Saved blogs={blogs}
-              setBlogs={setBlogs} signOut={signOut} currentUser={currentUser} />} />
+              setBlogs={setBlogs} currentUser={currentUser} />} />
         <Route path="/post" element={<PostBlog blogs={blogs}
         setBlogs={setBlogs} signOut={signOut} currentUser={currentUser}   />} />
          <Route path="/profile" element={<Profile currentUser={currentUser}   />} />
         <Route
           path="/sign-up"
           element={<CreateAccountPage signIn={signIn} />}
+        />
+        <Route
+          path="/postreview/"
+          element={<Review currentUser={currentUser} signOut={signOut} />}
         />
         <Route
           path="/blog-detail/:id"

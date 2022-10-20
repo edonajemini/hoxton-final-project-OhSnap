@@ -33,7 +33,8 @@ export function Navbar({ currentUser, signOut }: Props) {
             <li className="find-job-navbar-list-left-two">
               <NavLink to="/saved">Saved</NavLink>
             </li>
-
+            <li>
+            </li>
             <li className="find-job-navbar-signedin-three">
             </li>
             <button className="signout-btn"

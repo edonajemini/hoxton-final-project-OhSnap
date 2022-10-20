@@ -22,10 +22,13 @@ export type Blogs = {
   id: number;
   title: String;
   intro: String;
-  image?: String;
+  image: String;
   video?: String;
   createdAt: string;
+  category: string;
   blog: String;
+  saved: boolean;
+  liked: boolean;
   userPremiumId?: number;
   userId?: number;
   reviews: [];
