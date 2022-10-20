@@ -22,11 +22,28 @@
   font-size: 20px;
   
 }
+.signed-in{
+  display: grid;
+  justify-content: center;
+  align-content:flex-start;
+  grid-auto-flow: row;
+  gap: 50px;
+  list-style: none;
+  font-size: 20px;
+}
 .navbar-items a{
   text-decoration: none;
   color: #fbfaf9;
 }
 .navbar-items .active{
   color: #dec2bb;
+  font-weight: 700;
+}
+.signout-btn{
+  width: 100px;
+  height: 30px;
+  background-color:pink ;
+  border: thin solid pink;
+  color: white;
   font-weight: 700;
 }

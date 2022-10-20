@@ -1,12 +1,15 @@
 import { SetStateAction, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import { Navbar } from "../components/Navbar";
 import { Blogs, User } from "../types";
 type Props = {
     blogs: any;
     setBlogs: React.Dispatch<SetStateAction<Blogs[]>>;
+    currentUser: User;
+    signOut: () => void;
   };
  
-export function BlogDetails({blogs, setBlogs}:Props){
+export function BlogDetails({blogs, setBlogs, currentUser, signOut}:Props){
   const [blog, setBlog] = useState<Blogs | null>(null);
   const [users, setUsers] = useState<User[]>([]);
   useEffect(() => {
@@ -25,6 +28,8 @@ export function BlogDetails({blogs, setBlogs}:Props){
 if (blog === null) return <h2>Loading... </h2>;
     return(
         <div className="blog-feed">
+          <Navbar currentUser={currentUser}
+              signOut={signOut}/>
           <ul>
           <Link className="jobfeed-btn" to={"/homepage"}><button>Job feed</button> </Link>
             <Link className="jobfeed-btn" to={"/recentsearchpage"}><button>Recent searches</button></Link>
@@ -35,11 +40,12 @@ if (blog === null) return <h2>Loading... </h2>;
               <>
               <div className="user-name">
               <h2>{users.name} </h2>
-              <h3 className="username">{users.role}</h3>
+              <p>{users.email}</p>
               </div>
               </>
             ))}
             <div className="blogs-detail">
+            <img src={blog.image} width="400px" />
             <h3><u>{blog.title}</u></h3>
             <p>{blog.blog}</p>
             <div className="blog-btns">

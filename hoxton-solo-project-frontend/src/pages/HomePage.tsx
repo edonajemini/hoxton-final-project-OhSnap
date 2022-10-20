@@ -29,7 +29,7 @@ export function HomePage({ blogs, setBlogs, currentUser, signOut }: Props) {
         </ul>
       </ul>
       <SearchBar setBlogs={setBlogs}/>
-      <Post blogs={blogs} setBlogs={setBlogs} />
+      <Post blogs={blogs} setBlogs={setBlogs} currentUser={currentUser} signOut={signOut } />
     </div>
   );
 }

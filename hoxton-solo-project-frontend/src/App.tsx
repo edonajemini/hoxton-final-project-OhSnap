@@ -17,6 +17,7 @@ import { Books } from "./pages/Books";
 import { Movies } from "./pages/Movies";
 import { Celebrity } from "./pages/Celebrity";
 import { PostBlog } from "./pages/PostBlog";
+import Saved from "./pages/Saved";
 
 function App() {
   const navigate = useNavigate();
@@ -50,6 +51,7 @@ function App() {
 
   return (
     <div className="App">
+      <Navbar currentUser={currentUser} signOut={signOut } />
       <Routes>
         <Route index element={<Navigate to="/homepage" />} />
         <Route path="/homepage" element={<HomePage currentUser={currentUser}
@@ -70,6 +72,8 @@ function App() {
               setBlogs={setBlogs} />} />
         <Route path="/celebrity" element={<Celebrity blogs={blogs}
               setBlogs={setBlogs} />} />
+        <Route path="/saved" element={<Saved blogs={blogs}
+              setBlogs={setBlogs} signOut={signOut} currentUser={currentUser} />} />
         <Route path="/post" element={<PostBlog blogs={blogs}
         setBlogs={setBlogs} signOut={signOut} currentUser={currentUser}   />} />
         <Route

@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import { SetStateAction } from "react";
 import { Blogs, User } from "../types";
 import { BsBellFill, BsPersonFill } from "react-icons/bs";
+import { BlogDetails } from "../pages/BlogDetails";
 type Props = {
   currentUser: User;
   signOut: () => void;
@@ -32,16 +33,10 @@ export function Navbar({ currentUser, signOut }: Props) {
             <li className="find-job-navbar-list-left-two">
               <NavLink to="/saved">Saved</NavLink>
             </li>
-            <li className="find-job-navbar-signedin">
-              <BsBellFill />
-            </li>
-            <li className="find-job-navbar-signedin-two">
-              <BsPersonFill />
-            </li>
+
             <li className="find-job-navbar-signedin-three">
-             {/* <h2>{currentUser.name}</h2> */}
             </li>
-            <button
+            <button className="signout-btn"
               onClick={() => {
                 signOut();
               }}
