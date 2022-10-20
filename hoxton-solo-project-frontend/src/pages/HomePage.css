@@ -16,7 +16,7 @@
     width: 800px;
     padding: 20px;
     text-align: left;
-    font-family:'Times New Roman', Times, serif;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
 }
 .blogs img{
     width: 400px;
@@ -26,13 +26,23 @@
 a {
     text-decoration:none ;
   }
+.blogs p{
+    color: rgb(43, 43, 43);
+}
+.date-time{
+    justify-self: flex-end;
+    font-size: 14px;
+    color: gray;
+}
 .blogs-detail{
     margin-left:  350px;
     margin-right: 100px;
     margin-top: 50px;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
 }
+
 .blogs-detail p{
-    margin:20px 0;
+    margin:40px 0;
 }
 .user-name{
     margin-left: 300px;

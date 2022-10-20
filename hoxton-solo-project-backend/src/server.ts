@@ -36,44 +36,13 @@ async function getCurrentUser(token: string) {
   return userPremium;
 }
 
-//SignIn user
-// app.post("/sign-up", async (req, res) => {
-//   try {
-//     const { email, password, name, role } = req.body;
 
-//     const existingUser = await prisma.userPremium.findUnique({
-//       where: { email },
-//     });
-
-//     if (existingUser) {
-//       return res.status(400).json({ message: "User already exists!" });
-//     } else {
-//       const hashedPassword = bcrypt.hashSync(password);
-
-//       const userPremium = await prisma.userPremium.create({
-//         data: {
-//           email,
-//           password: hashedPassword,
-//           name,
-//           role,
-//         },
-//       });
-
-//       const token = generateToken(userPremium.id);
-
-//       res.send({ userPremium, token });
-//     }
-//   } catch (error) {
-//     // @ts-ignore
-//     res.status(500).send({ error: error.message });
-//   }
-// });
 app.post("/signup", async (req, res) => {
   try {
     const userPremium = await prisma.userPremium.findUnique({
       where: {email:req.body.email},
     });
-    if (!userPremium) {
+    if (userPremium) {
       return res.status(401).send({ message: "User already exists" });
     } else {
       const newUser = await prisma.userPremium.create({
@@ -85,6 +54,8 @@ app.post("/signup", async (req, res) => {
         },
         include: {
           blog: true,
+          reviews:true,
+          emoji:true
         },
       });
       const token = generateToken(newUser.id);
@@ -248,19 +219,16 @@ app.get("/usersPremium/:id", async (req, res) => {
   }
 });
 //Get userpremiums by name
-app.get("/userPremium/:name", async (req, res) => {
+app.get("/userpremium/userpremium/:name", async (req, res) => {
   try {
     const { name } = req.params;
 
-    const userPremium = await prisma.userPremium.findUnique({
-      where: { name: name },
+    const userpremium = await prisma.userPremium.findMany({
+      where: { name: { contains: name } },
       include: { reviews: true, blog: true },
     });
-    if (userPremium) {
-      res.send(userPremium);
-    } else {
-      res.status(404).send({ error: "UserPremium not found!" });
-    }
+
+    res.send(userpremium);
   } catch (error) {
     // @ts-ignore
     res.status(500).send({ error: error.message });
@@ -330,52 +298,42 @@ app.get("/userPremium/reviews", async (req, res) => {
 });
 
 // This endpoint will post a new blog 
-app.post("/blogs", async (req, res) => {
-  try {
-    const { title,intro,blog, image,video, userPremiumId,category ,saved,liked} =
-      req.body;
+app.post('/blogs', async (req, res)=>{
+  const blog = {
+    title :req.body.title,
+    intro :req.body.intro,       
+    image :req.body.image,
+    video :req.body.video,
+    blog: req.body.blog,
+    userPremiumId: req.body.userPremiumId,
+    saved:       false,
+    liked:       false,
+    createdAt:req.body.createdAt,
+    category:req.body.category,
+    review: req.body.review? req.body.review:[]
 
-    let errors: string[] = [];
-
-    if (typeof title !== "string") {
-      errors.push("Add a proper Title!");
-    }
-  
-    if (typeof blog !== "string") {
-      errors.push("Add a proper Text");
-    }
-    if (typeof userPremiumId !== "number") {
-      errors.push("Add a proper user ID");
-    }
-    if (errors.length === 0) {
-      const newBlog = await prisma.blog.create({
-        data: {
-          title: blog.title,
-          intro: blog.intro,
-          blog:blog.blog,
-          image:blog.image,
-          video:blog.video,
-          category:blog.category,
-          saved:false,
-          liked:false,
-          userPremium: {
-            connect: {
-              id: Number(req.body.userPremiumId),
-            },
-          },
-        },
-        include: { reviews: true, userPremium:true }
-      });
-
-      res.send(newBlog);
-    } else {
-      res.status(400).send({ errors: errors });
-    }
-  } catch (error) {
-    // @ts-ignore
-    res.status(500).send({ error: error.message });
   }
-});
+  try{
+      const newBlog = await prisma.blog.create({
+      data: {
+        title :blog.title,
+        intro :blog.intro,       
+        image :blog.image,
+        video :blog.video,
+        blog: blog.blog,
+        category:blog.category,
+        createdAt:blog.createdAt,
+        userPremiumId: blog.userPremiumId,
+        saved: false,
+        liked: false,
+      }
+      })
+      res.send(newBlog)
+  } catch(err) {
+      // @ts-ignore
+      res.status(400).send(err.message)   
+  }
+})
 
 //get all users
 app.get("/users", async (req, res) => {
@@ -401,42 +359,27 @@ app.delete("/blogs/:id", async (req, res) => {
 });
 
 //post reviews
-app.post("/reviews", async (req, res) => {
-  const reviews = {
-    content: req.body.content,
-    userPremiumId: req.body.userPremiumId,
-    rating: req.body.rating,
-    blogId: req.body.blogId
-  };
-  let errors: string[] = [];
-
-  if (typeof req.body.content !== "string") {
-    errors.push("Add a proper content!");
+app.post('/reviews', async (req, res)=>{
+  const review = {
+      content:req.body.content,
+      blogId: req.body.blogId,
+      userPremiumId:req.body.userPremiumId
   }
-  if (typeof req.body.userPremiumId !== "number") {
-    errors.push("Add a proper user Id!");
-  }
-  if (typeof req.body.userId !== "number") {
-    errors.push("Add a proper user Id");
-  }
-  if (errors.length === 0) {
-    try {
+  try{
       const newReview = await prisma.review.create({
-        data: {
-          content: reviews.content,
-          userPremiumId: reviews.userPremiumId,
-          blogId: reviews.blogId
-        },
-      });
-      res.send(newReview);
-    } catch (err) {
+      data: {
+        content:review.content,
+          blogId:review.blogId,
+          userPremiumId:review.userPremiumId
+      },
+      include:{ blog:true}
+      })
+      res.send(newReview)
+  } catch(err) {
       // @ts-ignore
-      res.status(400).send(err.message);
-    }
-  } else {
-    res.status(400).send({ errors: errors });
+      res.status(400).send(err.message)   
   }
-});
+})
 //delete reviews
 app.delete("/reviews/:id", async (req, res) => {
   try {

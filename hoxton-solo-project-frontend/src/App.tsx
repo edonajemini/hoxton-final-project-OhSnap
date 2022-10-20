@@ -18,6 +18,7 @@ import { Movies } from "./pages/Movies";
 import { Celebrity } from "./pages/Celebrity";
 import { PostBlog } from "./pages/PostBlog";
 import Saved from "./pages/Saved";
+import { Profile } from "./pages/Profile";
 
 function App() {
   const navigate = useNavigate();
@@ -38,16 +39,22 @@ function App() {
 
   useEffect(() => {
     if (localStorage.token) {
-      API.validate().then((data) => {
-        if (data.error) {
-          alert(data.error);
-        } else {
-          signIn(data);
-        }
-
-      });
+      fetch("http://localhost:4000/validate", {
+        headers: {
+          Authorization: localStorage.token,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.error) {
+            alert(data.error);
+          } else {
+            signIn(data);
+          }
+        });
     }
   }, []);
+
 
   return (
     <div className="App">
@@ -76,6 +83,7 @@ function App() {
               setBlogs={setBlogs} signOut={signOut} currentUser={currentUser} />} />
         <Route path="/post" element={<PostBlog blogs={blogs}
         setBlogs={setBlogs} signOut={signOut} currentUser={currentUser}   />} />
+         <Route path="/profile" element={<Profile currentUser={currentUser}   />} />
         <Route
           path="/sign-up"
           element={<CreateAccountPage signIn={signIn} />}
@@ -83,12 +91,7 @@ function App() {
         <Route
           path="/blog-detail/:id"
           element={
-            <BlogDetails
-              blogs={blogs}
-              setBlogs={setBlogs}
-            />
-          }
-        />
+            <BlogDetails currentUser={currentUser} />}/>
 
       </Routes>
     </div>

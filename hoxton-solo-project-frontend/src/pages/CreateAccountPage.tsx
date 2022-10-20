@@ -27,8 +27,8 @@ export function CreateAccountPage({ signIn }: Props) {
           signIn(data);
           if (role === "USER") {
             navigate("/homepage");
-          } else if (role === "EMPLOYER") {
-            navigate("/employers");
+          } else if (role === "USERPREMIUM") {
+            navigate("/homepage");
           } else {
             navigate("/homepage");
           }
@@ -42,7 +42,6 @@ export function CreateAccountPage({ signIn }: Props) {
 
   return (
     <div className="sign-up-page">
-      {/* <img src={logo} width="250px" alt="indeed-logo" /> */}
       <div className="sign-up-form-container">
         <h3>Create your account</h3>
         <h4>

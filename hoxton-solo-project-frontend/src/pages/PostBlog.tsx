@@ -15,7 +15,7 @@ export function PostBlog({ blogs, setBlogs, currentUser, signOut }: Props) {
       .then((resp) => resp.json())
       .then((blogsFromServer) => setBlogs(blogsFromServer));
   }, []);
-
+  const navigate = useNavigate();
   return (
     <div className="blog-posting">
       <h1 className="post-h1">POST HERE?</h1>
@@ -25,11 +25,11 @@ export function PostBlog({ blogs, setBlogs, currentUser, signOut }: Props) {
           event.preventDefault();
           const form = event.currentTarget;
           let userPremiumId: number;
-          const userPremiumName = form.userPremiumName.value;
-          fetch(`http://localhost:4000/userPremium/${userPremiumName}`)
+          const Username = form.userName.value;
+          fetch(`http://localhost:4000/userpremium/userpremium/${Username}`)
             .then((resp) => resp.json())
-            .then((company) => {
-                userPremiumId = Number(company[0].id);
+            .then((userPremium) => {
+              userPremiumId = Number(userPremium[0].id);
             });
 
           setTimeout(() => {
@@ -51,9 +51,13 @@ export function PostBlog({ blogs, setBlogs, currentUser, signOut }: Props) {
               },
               body: JSON.stringify(newBlog),
             })
-              .then((resp) => resp.json())
-              .then((blogsFromServer) => setBlogs(blogsFromServer));
-          }, 500);
+            .then(() => {
+              fetch("http://localhost:4000/blogs")
+                .then((resp) => resp.json())
+                .then((blogsFromServer) => setBlogs(blogsFromServer));
+                navigate("/employers");
+            })
+        }, 500);
         }}
       >
         <input
@@ -97,11 +101,11 @@ export function PostBlog({ blogs, setBlogs, currentUser, signOut }: Props) {
           placeholder="Category?"
           required
         ></input>
-        <input
+         <input
           type="text"
-          name="userPremiumName"
-          id="userPremiumName"
-          placeholder="Your user name?"
+          name="userName"
+          id="userName"
+          placeholder="Your name?"
         ></input>
         <button className="review-btn">POST</button>
       </form>

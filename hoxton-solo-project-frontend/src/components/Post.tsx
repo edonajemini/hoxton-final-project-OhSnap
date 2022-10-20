@@ -18,7 +18,7 @@ export function Post({blogs, setBlogs, currentUser, }:Props){
     <>
     <div className="blogs-feed">
       
-          {blogs.map((blog:any) => (
+          {blogs.reverse().map((blog:any) => (
               <>
               <Link to={`/blog-detail/${blog.id}`}>
               <div className="blogs">
@@ -32,6 +32,18 @@ export function Post({blogs, setBlogs, currentUser, }:Props){
                 <div className="blog-btns">
                 <button className="save-btn">Save</button>
                 <button className="like-btn">Like</button>
+                <button className="save-btn"
+                onClick={() => {
+                  fetch(`http://localhost:4000/blogs/${blog.id}`, {
+                    method: "DELETE",
+                  })
+                    .then((resp) => resp.json())
+                    .then(() => location.reload());
+                }}
+              >
+                {" "}
+                DELETE{" "}
+              </button>
                 </div>
               </>
             ))}
