@@ -66,7 +66,6 @@ function App() {
               blogs={blogs}
               setBlogs={setBlogs}/>} />
         <Route path="/signin" element={<SignInPage signIn={signIn} />} />
-        <Route path="/select-role" element={<SelectRolePage />} />
         <Route path="/general" element={<General blogs={blogs}
               setBlogs={setBlogs}/>} />
         <Route path="/politics" element={<Politics blogs={blogs}

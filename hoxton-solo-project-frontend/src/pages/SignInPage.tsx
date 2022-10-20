@@ -71,7 +71,7 @@ export function SignInPage({ signIn }: Props) {
             onSubmit={(event) => {
               event.preventDefault();
               localStorage.newUserEmail = event.currentTarget.email.value;
-              navigate("/select-role");
+              navigate("/sign-up");
             }}
           >
             <label htmlFor="email">

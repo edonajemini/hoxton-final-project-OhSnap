@@ -38,7 +38,7 @@ export function CreateAccountPage({ signIn }: Props) {
         }
       })
     }
-    // navigate("/homepage");
+    navigate("/homepage");
 
     localStorage.removeItem("newUserEmail");
     localStorage.removeItem("role");
