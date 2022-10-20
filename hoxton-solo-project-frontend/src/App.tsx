@@ -19,7 +19,6 @@ import { Celebrity } from "./pages/Celebrity";
 import { PostBlog } from "./pages/PostBlog";
 import Saved from "./pages/Saved";
 import { Profile } from "./pages/Profile";
-import { Review } from "./pages/Review";
 
 function App() {
   const navigate = useNavigate();
@@ -89,10 +88,7 @@ function App() {
           path="/sign-up"
           element={<CreateAccountPage signIn={signIn} />}
         />
-        <Route
-          path="/postreview/"
-          element={<Review currentUser={currentUser} signOut={signOut} />}
-        />
+       
         <Route
           path="/blog-detail/:id"
           element={
