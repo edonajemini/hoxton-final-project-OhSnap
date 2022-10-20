@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { json, Navigate, useNavigate } from "react-router-dom";
 import "./SignInPage.css";
 import * as API from "../api"
 
@@ -12,27 +12,27 @@ export function SignInPage({ signIn }: Props) {
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    const form = event.currentTarget;
+    const form = event.target;
     const email = form.email.value;
     const password = form.password.value;
 
-    if (email && password) {
-      API.login({ email, password }).then((data) => {
-        if (data.error) {
-          alert(data.error);
-        } else {
-          //sign them in
-          signIn(data);
-          if (data.user.role === "USER") {
-            navigate("/homepage");
-          } else if (data.user.role === "USERPREMIUM") {
-            navigate("/");
-          } else {
-            navigate("/homepage");
-          }
-        }
-      });
+    let user = {
+      email, 
+      password
     }
+    fetch(`http://localhost:4000/login`,{
+      method:"post",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify(user)
+    })
+          .then((resp) => resp.json())
+          .then((data) => {
+            if (data.error) {
+              alert(data.error);
+            } else {
+              signIn(data);
+            }
+          })
   }
 
   return (

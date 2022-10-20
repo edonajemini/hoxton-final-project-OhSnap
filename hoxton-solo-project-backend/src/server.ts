@@ -20,80 +20,95 @@ function generateToken(id: number) {
   return token;
 }
 
-function verifyToken(token: string) {
-  const decoded = jwt.verify(token, JWT_SECRET);
-  // @ts-ignore
-  return decoded.id;
-}
+
 
 async function getCurrentUser(token: string) {
-  const decoded = verifyToken(token);
-
+  const decodedData = jwt.verify(token, JWT_SECRET);
   const userPremium = await prisma.userPremium.findUnique({
-    where: { id: decoded },
+    where: {
+      // @ts-ignore
+      id: Number(decodedData.id),
+    },
+    include: {
+      blog: true,
+    },
   });
-
   return userPremium;
 }
 
 //SignIn user
-app.post("/sign-up", async (req, res) => {
+// app.post("/sign-up", async (req, res) => {
+//   try {
+//     const { email, password, name, role } = req.body;
+
+//     const existingUser = await prisma.userPremium.findUnique({
+//       where: { email },
+//     });
+
+//     if (existingUser) {
+//       return res.status(400).json({ message: "User already exists!" });
+//     } else {
+//       const hashedPassword = bcrypt.hashSync(password);
+
+//       const userPremium = await prisma.userPremium.create({
+//         data: {
+//           email,
+//           password: hashedPassword,
+//           name,
+//           role,
+//         },
+//       });
+
+//       const token = generateToken(userPremium.id);
+
+//       res.send({ userPremium, token });
+//     }
+//   } catch (error) {
+//     // @ts-ignore
+//     res.status(500).send({ error: error.message });
+//   }
+// });
+app.post("/signup", async (req, res) => {
   try {
-    const { email, password, name, role } = req.body;
-
-    const existingUser = await prisma.userPremium.findUnique({
-      where: { email },
+    const userPremium = await prisma.userPremium.findUnique({
+      where: {email:req.body.email},
     });
-
-    if (existingUser) {
-      return res.status(400).json({ message: "User already exists!" });
+    if (!userPremium) {
+      return res.status(401).send({ message: "User already exists" });
     } else {
-      const hashedPassword = bcrypt.hashSync(password);
-
-      const userPremium = await prisma.userPremium.create({
+      const newUser = await prisma.userPremium.create({
         data: {
-          email,
-          password: hashedPassword,
-          name,
-          role,
+          email: req.body.email,
+          name: req.body.name,
+          password: bcrypt.hashSync(req.body.password, 10),
+          
+        },
+        include: {
+          blog: true,
         },
       });
-
-      const token = generateToken(userPremium.id);
-
-      res.send({ userPremium, token });
+      const token = generateToken(newUser.id);
+      res.send({newUser, token});
     }
   } catch (error) {
-    // @ts-ignore
-    res.status(500).send({ error: error.message });
+    //@ts-ignore
+    res.status(451).send({ error: error.message });
   }
 });
 
 //log-in user
 app.post("/login", async (req, res) => {
-  try {
-    const { email, password } = req.body;
+ 
+  const existingUser = await prisma.userPremium.findUnique({
+    where: { email: req.body.email },
+  });
 
-    const userPremium = await prisma.userPremium.findUnique({
-      where: { email },
-    });
+  if (existingUser && bcrypt.compareSync(req.body.password, existingUser.password)) {
+    const token = generateToken(existingUser.id);
+    res.send({ existingUser, token });
 
-    if (!userPremium) {
-      return res.status(400).send({ error: "Invalid credentials." });
-    }
-
-    const valid = bcrypt.compareSync(password, userPremium.password);
-
-    if (!valid) {
-      return res.status(400).json({ error: "Invalid credentials." });
-    }
-
-    const token = generateToken(userPremium.id);
-
-    res.send({ userPremium, token });
-  } catch (error) {
-    // @ts-ignore
-    res.status(500).send({ error: error.message });
+  } else {
+    res.status(401).send({ message: "Invalid credentials." });
   }
 });
 

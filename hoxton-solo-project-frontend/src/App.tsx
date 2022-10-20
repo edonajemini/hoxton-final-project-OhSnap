@@ -1,10 +1,10 @@
 import { SetStateAction, useEffect, useState } from "react";
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 
 import "./App.css";
 import { SignInPage } from "./pages/SignInPage";
 import { SelectRolePage } from "./pages/SelectRolePage";
-import { Blogs } from "./types";
+import { Blogs, User } from "./types";
 import * as API from "./api";
 import { CreateAccountPage } from "./pages/CreateAccountPage";
 import { HomePage } from "./pages/HomePage";
@@ -19,17 +19,20 @@ import { Celebrity } from "./pages/Celebrity";
 import { PostBlog } from "./pages/PostBlog";
 
 function App() {
+  const navigate = useNavigate();
   const [blogs, setBlogs] = useState<Blogs[]>([]);
-  const [currentUser, setCurrentUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState<User|null>(null);
 
   function signIn(data: { user: any; token: string }) {
     setCurrentUser(data.user);
     localStorage.token = data.token;
+    navigate("/homepage")
   }
 
   function signOut() {
     setCurrentUser(null);
     localStorage.removeItem("token");
+    navigate("/homepage")
   }
 
   useEffect(() => {
@@ -40,6 +43,7 @@ function App() {
         } else {
           signIn(data);
         }
+
       });
     }
   }, []);

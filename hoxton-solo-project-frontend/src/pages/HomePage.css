@@ -1,15 +1,6 @@
-.body{
-    background-color:pink ;
-}
-.homepagequote {
-    display: block;
-    margin-left: 450px;
-    margin-right: auto;
-    width: 50%;
-}
 .blogs-feed{
     text-align: center;
-    margin-left: 370px;
+    margin-left: 400px;
     display: grid;
     grid-auto-flow: row;
    gap: 50px;
@@ -52,7 +43,7 @@ a{
     color: white;
 }
 .blog-search{
-    margin-left: 500px;
+    margin-left: 400px;
     margin-top: 50px;
     margin-bottom: 50px;
 }
