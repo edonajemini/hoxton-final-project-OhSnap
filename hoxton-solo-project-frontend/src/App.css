@@ -47,3 +47,23 @@
   color: white;
   font-weight: 700;
 }
+.post-blog{
+  width: 500px;
+  border: thin solid rgb(217, 217, 217);
+  padding: 20px;
+  background-color: rgba(220, 220, 220, 0.248);
+}
+.post-blog button{
+  width: 100px;
+  height: 30px;
+  justify-self: flex-end;
+  background-color:pink ;
+  border: thin solid pink;
+  color: white;
+  font-weight: 700;
+}
+.post-h1{
+  margin-left: 300px;
+  margin-top: 20px;
+  color: pink;
+}

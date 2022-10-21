@@ -19,7 +19,7 @@
     border: 1px solid #e0e0e0;
     padding: 1rem;
     gap: 1rem;
-    background-color: #dec2bb7b;
+    background-color: rgba(220, 220, 220, 0.124);
     margin-top: 100px;
   }
   
@@ -83,4 +83,23 @@
   input:hover {
     border: 1px solid pink;
   }
-  
+.signup-btn{
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    background-color: pink;
+    color: white;
+    font-size: 1.15rem;
+    font-weight: 500;
+    transition: 500ms;
+  }
+  .sign-in-btn{
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    background-color: pink;
+    color: white;
+    font-size: 1.15rem;
+    font-weight: 500;
+    transition: 500ms;
+  }

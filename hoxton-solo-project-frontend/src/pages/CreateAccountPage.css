@@ -59,7 +59,7 @@
   label span {
     font-size: 1.2rem;
     font-weight: 700;
-    color: crimson;
+    color: pink;
   }
   
   .sign-up-form-section {
@@ -88,9 +88,10 @@
     font-size: 1.15rem;
     font-weight: 500;
     transition: 500ms;
+    height: 40px;
   }
   
   .sign-up-btn:hover {
-    background-color: darkcyan;
+    background-color: palevioletred;
   }
   

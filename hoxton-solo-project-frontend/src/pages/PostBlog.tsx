@@ -18,7 +18,7 @@ export function PostBlog({ blogs, setBlogs, currentUser, signOut }: Props) {
   const navigate = useNavigate();
   return (
     <div className="blog-posting">
-      <h1 className="post-h1">POST HERE?</h1>
+      <h1 className="post-h1">POST UR BLOG HERE!</h1>
       <form
         className="post-blog"
         onSubmit={(event) => {
@@ -78,6 +78,7 @@ export function PostBlog({ blogs, setBlogs, currentUser, signOut }: Props) {
           name="blog"
           id="blog"
           placeholder="Write the BLOG here..."
+          rows={7}
           required
         ></textarea>
         <span>
