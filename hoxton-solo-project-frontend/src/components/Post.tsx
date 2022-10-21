@@ -45,7 +45,22 @@ export function Post({blogs, setBlogs, currentUser, }:Props){
                   .then((blogsFromServer) => setBlogs(blogsFromServer));
               });
             }} className="save-btn">{blog.saved ? "SAVED":"Save"}</button>
-                <button className="like-btn">Like</button>
+            
+                <button onClick={() => {
+              return fetch(`http://localhost:4000/blogs/${blog.id}`, {
+                method: "PATCH",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  liked: !blog.liked,
+                }),
+              }).then(() => {
+                return fetch(`http://localhost:4000/blogs`)
+                  .then((resp) => resp.json())
+                  .then((blogsFromServer) => setBlogs(blogsFromServer));
+              });
+            }} className="like-btn">{blog.liked ? "LIKED":"Like"}</button>
                 <button className="save-btn"
                 onClick={() => {
                   fetch(`http://localhost:4000/blogs/${blog.id}`, {

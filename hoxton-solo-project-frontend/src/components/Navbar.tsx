@@ -28,9 +28,6 @@ export function Navbar({ currentUser, signOut }: Props) {
               <NavLink to="/post">Post</NavLink>
             </li>
             <li className="find-job-navbar-list-left-two">
-              <NavLink to="/profile">Profile</NavLink>
-            </li>
-            <li className="find-job-navbar-list-left-two">
               <NavLink to="/saved">Saved</NavLink>
             </li>
             <li>

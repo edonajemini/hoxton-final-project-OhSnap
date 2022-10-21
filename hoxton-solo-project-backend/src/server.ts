@@ -194,6 +194,23 @@ app.patch("/blogs/:id", async (req, res) => {
   res.status(404).send({ error: error.message });
 }
 })
+//change the blog to liked
+app.patch("/blogs/:id", async (req, res) => {
+  try {
+  const blog = await prisma.blog.update({
+    where: {
+      id: Number(req.params.id)
+    },
+    data: {
+      liked: req.body.liked
+    }
+  })
+  res.send(blog);
+} catch (error) {
+  // @ts-ignore
+  res.status(404).send({ error: error.message });
+}
+})
 //Get users by id
 app.get("/users/:id", async (req, res) => {
   try {

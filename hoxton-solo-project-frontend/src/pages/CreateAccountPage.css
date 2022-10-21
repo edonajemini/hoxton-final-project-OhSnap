@@ -23,6 +23,7 @@
     border: 1px solid #e0e0e0;
     padding: 1rem;
     gap: 1rem;
+    margin-top: 100px;
   }
   
   .sign-up-form-container h3 {
@@ -36,7 +37,7 @@
   }
   
   .sign-up-form-container h4 span {
-    color: darkcyan;
+    color: pink;
     font-weight: 500;
   }
   
@@ -75,14 +76,14 @@
   }
   
   input:hover {
-    border: 1px solid darkcyan;
+    border: 1px solid pink;
   }
   
   .sign-up-btn {
     width: 100%;
     border: none;
     border-radius: 5px;
-    background-color: royalblue;
+    background-color: pink;
     color: white;
     font-size: 1.15rem;
     font-weight: 500;

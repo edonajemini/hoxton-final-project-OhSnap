@@ -1,19 +1,9 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Navbar } from "../components/Navbar"; 
+import { User } from "../types";
 
-type Company = {
-  id: number;
-  name: string;
-  imageURL: string;
-  rating: number;
-  about: string;
-  address: string;
-  email: string;
-  website: string;
-  reviews: [];
-  jobs: [];
-};
+
 
 type Reviews = {
   id: number;
@@ -30,11 +20,11 @@ type Props = {
 
 export function Reviews({ currentUser, signOut }: Props) {
   const navigate = useNavigate();
-  const [companies, setCompanies] = useState<Company[]>([]);
+  const [user, setUser] = useState<User|null>(null);
   useEffect(() => {
-    fetch(`http://localhost:3005/companies`)
+    fetch(`http://localhost:4000/blogs`)
       .then((resp) => resp.json())
-      .then((companiesFromServer) => setCompanies(companiesFromServer));
+      .then((blogsFromServer) => setUser(blogsFromServer));
   }, []);
 
   return (
@@ -48,7 +38,7 @@ export function Reviews({ currentUser, signOut }: Props) {
           let newReview = {
             content: event.target.content.value,
             rating: Number(event.target.rating.value),
-            companyId: Number(localStorage.companyId),
+            blogId: Number(localStorage.blogId),
             userId: currentUser.id,
           };
 
