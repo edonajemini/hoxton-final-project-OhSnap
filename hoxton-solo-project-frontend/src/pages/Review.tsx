@@ -1,7 +1,9 @@
-import { SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Navbar } from "../components/Navbar"; 
-import { Blogs, UserPremium } from "../types";
+import { Navbar } from "../components/Navbar";
+import { Blogs } from "../types";
+
+
 
 type Reviews = {
   id: number;
@@ -11,20 +13,18 @@ type Reviews = {
   content: string;
 };
 
-type Props ={
-  currentUser: UserPremium;
+type Props = {
+  currentUser: any;
   signOut: () => void;
-  blogs: any,
-  setBlogs: React.Dispatch<SetStateAction<Blogs[]>>
-}
+};
 
-export function Review({ currentUser, signOut, blogs, setBlogs}: Props) {
+export function Review({ currentUser, signOut }: Props) {
   const navigate = useNavigate();
-  const [user, setUser] = useState<UserPremium|null>(null);
+  const [blogs, setBlogs] = useState<Blogs[]>([]);
   useEffect(() => {
     fetch(`http://localhost:4000/blogs`)
       .then((resp) => resp.json())
-      .then((blogsFromServer) => setUser(blogsFromServer));
+      .then((blogsFromServer) => setBlogs(blogsFromServer));
   }, []);
 
   return (
@@ -37,34 +37,32 @@ export function Review({ currentUser, signOut, blogs, setBlogs}: Props) {
           event.preventDefault();
           let newReview = {
             content: event.target.content.value,
-            blogId: Number(localStorage.blogId),
+            blogId: Number(localStorage.companyId),
             userPremiumId: currentUser.id,
           };
 
-          fetch("http://localhost:3005/reviews", {
+          fetch("http://localhost:4000/reviews", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
             },
             body: JSON.stringify(newReview),
           });
-          navigate(`/company/${localStorage.companyId}`);
-          localStorage.removeItem("companyId");
-          navigate(`/homepage`);
+          navigate(`/homepage/${localStorage.blogId}`);
+          localStorage.removeItem("blogId");
         }}
       >
-        <div className="review-btn">
+        <div className="review-btn ">
         <textarea
           name="content"
           id="text"
-          placeholder="Your Review?"
           rows={5}
+          placeholder="Your Review?"
           required
         ></textarea>
-        <button type="submit" className="save-btn">POST</button>
+        <button className="save-btn">POST</button>
         </div>
       </form>
     </>
-   
   );
 }

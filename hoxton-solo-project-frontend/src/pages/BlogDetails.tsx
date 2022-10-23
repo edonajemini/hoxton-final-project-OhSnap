@@ -68,12 +68,15 @@ if (blog === null) return <h2>Loading... </h2>;
                 <button className="like-btn">Like</button>
                 <Link to={"/review"}> <button className="save-btn">Review</button></Link>
                 <h2>Reviews:</h2>
-                {reviews.map(review => (
-                  <>
-                  <h3>{review.content}</h3>
-                  </>
-                ))}
-
+                <p>
+              {blog.reviews.map((review: any) => (
+                <>
+                  <div className="reviews">
+                    <h5>{review.content}</h5>
+                  </div>
+                </>
+              ))}
+            </p>
                 </div>
             </div>
             </div>

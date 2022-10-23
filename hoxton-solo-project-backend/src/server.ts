@@ -384,6 +384,11 @@ app.post('/blogs', async (req, res)=>{
   }
 })
 
+//get all reviews
+app.get("/reviews", async (req, res) => {
+  const reviews = await prisma.review.findMany();
+  res.send(reviews);
+});
 //get all users
 app.get("/users", async (req, res) => {
   const users = await prisma.user.findMany();
@@ -408,34 +413,41 @@ app.delete("/blogs/:id", async (req, res) => {
 });
 
 //post reviews
-app.post('/reviews', async (req, res)=>{
-  const review = {
-    userPremiumId: req.body.userPremiumId,
+app.post("/reviews", async (req, res) => {
+  const reviews = {
     content: req.body.content,
-    blogId: req.body.blogId
+    blogId: req.body.blogId,
+    userPremiumId: req.body.userPremiumId,
+  };
+  let errors: string[] = [];
+
+  if (typeof req.body.content !== "string") {
+    errors.push("Add a proper content!");
   }
-  let errors: string[] = []
-
-    if (typeof req.body.userPremiumId !== 'number') {
-        errors.push('User Id not given!')
-      }
-
-    if( errors.length === 0)  {
-      try{
-          const newReview = await prisma.review.create({
-            data: {
-              userPremiumId: req.body.userPremiumId,
-              content: req.body.content,
-              blogId: req.body.blogId
-            }
-          })
-          res.send(newReview)
-        } catch(err) {
-          // @ts-ignore
-          res.status(400).send({errors: errors})
-        }
+  if (typeof req.body.blogId !== "number") {
+    errors.push("Add a proper blog Id!");
+  }
+  if (typeof req.body.userPremiumId !== "number") {
+    errors.push("Add a proper user Id");
+  }
+  if (errors.length === 0) {
+    try {
+      const newReview = await prisma.review.create({
+        data: {
+          content: reviews.content,
+          blogId: reviews.blogId,
+          userPremiumId: reviews.userPremiumId
+        },
+      });
+      res.send(newReview);
+    } catch (err) {
+      // @ts-ignore
+      res.status(400).send(err.message);
     }
-})
+  } else {
+    res.status(400).send({ errors: errors });
+  }
+});
 //delete reviews
 app.delete("/reviews/:id", async (req, res) => {
   try {

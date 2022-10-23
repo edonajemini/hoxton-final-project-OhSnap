@@ -84,3 +84,12 @@
 .review-btn button{
   justify-self: flex-end;
 }
+.reviews{
+  display: grid;
+  grid-auto-flow: row;
+  width: 300px;
+  border:thin solid pink;
+  margin-bottom: 5px;
+  margin-left: 50px;
+  padding: 10px;
+}

@@ -87,7 +87,7 @@ function App() {
           path="/sign-up"
           element={<CreateAccountPage signIn={signIn} />}
         />
-       <Route path="/review" element={<Review currentUser={currentUser} signOut={signOut} blogs={undefined} setBlogs={setBlogs} />} />
+       <Route path="/review" element={<Review currentUser={currentUser} signOut={signOut} />} />
         <Route
           path="/blog-detail/:id"
           element={

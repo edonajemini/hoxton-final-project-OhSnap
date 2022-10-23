@@ -59,7 +59,7 @@ model Review {
   userId        Int?
   userPremium   UserPremium @relation(fields: [userPremiumId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   userPremiumId Int
-  content       String @unique
+  content       String
   blog          Blog         @relation(fields: [blogId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   blogId        Int
 }
