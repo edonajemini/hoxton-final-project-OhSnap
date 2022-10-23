@@ -1,6 +1,7 @@
 import { SetStateAction, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { timeElapsed } from "../api";
+
 import { Blogs } from "../types";
 type Props ={
   currentUser: any;

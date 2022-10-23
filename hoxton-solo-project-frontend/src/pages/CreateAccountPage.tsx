@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import "./CreateAccountPage.css";
-import * as API from "../api";
+
 import { UserPremium } from "../types";
 
 type Props = {

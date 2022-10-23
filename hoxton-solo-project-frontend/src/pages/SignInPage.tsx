@@ -1,6 +1,5 @@
 import { json, Navigate, useNavigate } from "react-router-dom";
 import "./SignInPage.css";
-import * as API from "../api"
 
 type Props = {
   signIn: (data: { user: any; token: string }) => void;
@@ -15,24 +14,25 @@ export function SignInPage({ signIn }: Props) {
     const form = event.target;
     const email = form.email.value;
     const password = form.password.value;
-
     let user = {
-      email, 
-      password
-    }
-    fetch(`http://localhost:4000/login`,{
-      method:"post",
-      headers:{"Content-Type":"application/json"},
-      body:JSON.stringify(user)
+      email,
+      password,
+    };
+    console.log(user)
+    fetch(`http://localhost:4000/login`, {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(user),
     })
-          .then((resp) => resp.json())
-          .then((data) => {
-            if (data.error) {
-              alert(data.error);
-            } else {
-              signIn(data);
-            }
-          })
+      .then((resp) => resp.json())
+      .then((data) => {
+        if (data.error) {
+          alert(data.error);
+        } else {
+          console.log(data)
+          signIn(data);
+        }
+      });
   }
 
   return (
@@ -87,4 +87,3 @@ export function SignInPage({ signIn }: Props) {
     </div>
   );
 }
-

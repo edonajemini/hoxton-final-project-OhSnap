@@ -1,9 +1,9 @@
 import { SetStateAction, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { Blogs, UserPremium } from "../types";
 import { timeElapsed } from "../api";
-import { Blogs, User } from "../types";
 type Props ={
-  currentUser: User;
+  currentUser: UserPremium;
   blog: Blogs,
   setBlogs: React.Dispatch<SetStateAction<Blogs[]>>
 }

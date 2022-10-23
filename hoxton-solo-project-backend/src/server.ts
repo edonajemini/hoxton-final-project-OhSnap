@@ -6,22 +6,22 @@ import jwt from "jsonwebtoken";
 import env from "dotenv";
 
 env.config();
-const JWT_SECRET = process.env.JWT_SECRET!;
+
+const SECRET = process.env.SECRET!;
 
 const prisma = new PrismaClient();
 const app = express();
 app.use(cors());
 app.use(express.json());
-
 const port = 4000;
 
 function generateToken(id: number) {
-  const token = jwt.sign({ id }, JWT_SECRET, { expiresIn: "1h" });
+  const token = jwt.sign({ id }, SECRET, { expiresIn: "1h" });
   return token;
 }
 
 async function getCurrentUser(token: string) {
-  const decodedData = jwt.verify(token, JWT_SECRET);
+  const decodedData = jwt.verify(token, SECRET);
   const userPremium = await prisma.userPremium.findUnique({
     where: {
       // @ts-ignore
@@ -37,7 +37,7 @@ async function getCurrentUser(token: string) {
 
 app.post("/signup", async (req, res) => {
   try {
-    const users = await prisma.userPremium.findMany({
+    const userPremiums = await prisma.userPremium.findMany({
       where: {
         OR: [
           {
@@ -49,10 +49,10 @@ app.post("/signup", async (req, res) => {
         ],
       },
     });
-    if (users.length > 0) {
+    if (userPremiums.length > 0) {
       return res.status(401).send({ message: "User already exists" });
     } else {
-      const user = await prisma.userPremium.create({
+      const userPremium = await prisma.userPremium.create({
         data: {
           email: req.body.email,
           name: req.body.name,
@@ -62,8 +62,8 @@ app.post("/signup", async (req, res) => {
           blog: true,
         },
       });
-      const token = generateToken(user.id);
-      res.send({user, token});
+      const token = generateToken(userPremium.id);
+      res.send({userPremium, token});
     }
   } catch (error) {
     //@ts-ignore
@@ -79,9 +79,9 @@ app.post("/login", async (req, res) => {
         {
           email: req.body.email,
         },
-        {
-          name: req.body.name,
-        },
+        // {
+        //   name: req.body.name,
+        // },
       ],
     },
     include: {
@@ -227,25 +227,7 @@ app.patch("/blogs/:id", async (req, res) => {
   res.status(404).send({ error: error.message });
 }
 })
-//Get users by id
-app.get("/users/:id", async (req, res) => {
-  try {
-    const { id } = req.params;
 
-    const user = await prisma.user.findUnique({
-      where: { id: Number(id) },
-      include: { reviews: true},
-    });
-    if (user) {
-      res.send(user);
-    } else {
-      res.status(404).send({ error: "User not found!" });
-    }
-  } catch (error) {
-    // @ts-ignore
-    res.status(500).send({ error: error.message });
-  }
-});
 
 
 //Get userpremiums by id
@@ -291,7 +273,7 @@ app.get("/blogs/:id/reviews", async (req, res) => {
 
     const reviews = await prisma.review.findMany({
       where: { blogId: Number(id) },
-      include: { userPremium: true, user: true },
+      include: { userPremium: true},
     });
 
     res.send(reviews);
@@ -301,28 +283,7 @@ app.get("/blogs/:id/reviews", async (req, res) => {
   }
 });
 
-//Get all reviews for the current user
-app.get("/user/reviews", async (req, res) => {
-  try {
-    // @ts-ignore
-    const user = await getCurrentUser(req.headers.authorization);
-    if (user) {
-      const reviews = await prisma.review.findMany({
-        where: { userId: user.id },
-        include: { userPremium: true, user: true },
-      });
 
-      res.send(reviews);
-    } else {
-      res
-        .status(401)
-        .send({ error: "You need to be signed in to unlock this feature!" });
-    }
-  } catch (error) {
-    // @ts-ignore
-    res.status(500).send({ error: error.message });
-  }
-});
 //Get all reviews for the current userPremium
 app.get("/userPremium/reviews", async (req, res) => {
   try {
@@ -331,7 +292,7 @@ app.get("/userPremium/reviews", async (req, res) => {
     if (userPremium) {
       const reviews = await prisma.review.findMany({
         where: { userPremiumId: userPremium.id },
-        include: { user: true, userPremium: true },
+        include: { userPremium: true },
       });
 
       res.send(reviews);
@@ -389,11 +350,7 @@ app.get("/reviews", async (req, res) => {
   const reviews = await prisma.review.findMany();
   res.send(reviews);
 });
-//get all users
-app.get("/users", async (req, res) => {
-  const users = await prisma.user.findMany();
-  res.send(users);
-});
+
 //get all premium users
 app.get("/premiumusers", async (req, res) => {
   const userPremium = await prisma.userPremium.findMany();
@@ -436,7 +393,7 @@ app.post("/reviews", async (req, res) => {
         data: {
           content: reviews.content,
           blogId: reviews.blogId,
-          userPremiumId: reviews.userPremiumId
+          userPremiumId: reviews.userPremiumId,
         },
       });
       res.send(newReview);

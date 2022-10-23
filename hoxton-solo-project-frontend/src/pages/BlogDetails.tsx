@@ -37,7 +37,7 @@ if (blog === null) return <h2>Loading... </h2>;
           </ul>
           <div className="all-jobs">
           <div className="job-detail">
-          {users.filter(user => user.id === blog.userId).map(users => (
+          {users.filter(userPremium => userPremium.id === blog.userPremiumId).map(users => (
               <>
               <div className="user-name">
               <h2>{users.name} </h2>

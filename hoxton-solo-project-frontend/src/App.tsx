@@ -4,7 +4,6 @@ import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import "./App.css";
 import { SignInPage } from "./pages/SignInPage";
 import { Blogs, UserPremium } from "./types";
-import * as API from "./api";
 import { CreateAccountPage } from "./pages/CreateAccountPage";
 import { HomePage } from "./pages/HomePage";
 import { Navbar } from "./components/Navbar";
@@ -25,8 +24,8 @@ function App() {
   const [blogs, setBlogs] = useState<Blogs[]>([]);
   const [currentUser, setCurrentUser] = useState<UserPremium|null>(null);
 
-  function signIn(data: { user: any; token: string }) {
-    setCurrentUser(data.user);
+  function signIn(data: { userPremium: any; token: string }) {
+    setCurrentUser(data.userPremium);
     localStorage.token = data.token;
     navigate("/homepage")
   }
@@ -87,7 +86,7 @@ function App() {
           path="/sign-up"
           element={<CreateAccountPage signIn={signIn} />}
         />
-       <Route path="/review" element={<Review currentUser={currentUser} signOut={signOut} />} />
+       <Route path="/review" element={<Review currentUser={currentUser} signOut={signOut} blogs={blogs} setBlogs={setBlogs}/>} />
         <Route
           path="/blog-detail/:id"
           element={
