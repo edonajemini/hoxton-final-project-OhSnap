@@ -20,7 +20,7 @@ export default function Saved( { blogs, setBlogs, currentUser,signOut }: Props) 
         .then(r => r.json())
         .then(savedBlogsFromServer => setsavedBlogs(savedBlogsFromServer) )
     }, [])
-
+ 
 
   return (
     <main className='main'>
