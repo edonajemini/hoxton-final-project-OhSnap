@@ -1,9 +1,7 @@
-import { useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Navbar } from "../components/Navbar"; 
-import { User } from "../types";
-
-
+import { Blogs, UserPremium } from "../types";
 
 type Reviews = {
   id: number;
@@ -13,14 +11,16 @@ type Reviews = {
   content: string;
 };
 
-type Props = {
-  currentUser: any;
+type Props ={
+  currentUser: UserPremium;
   signOut: () => void;
-};
+  blogs: any,
+  setBlogs: React.Dispatch<SetStateAction<Blogs[]>>
+}
 
-export function Reviews({ currentUser, signOut }: Props) {
+export function Review({ currentUser, signOut, blogs, setBlogs}: Props) {
   const navigate = useNavigate();
-  const [user, setUser] = useState<User|null>(null);
+  const [user, setUser] = useState<UserPremium|null>(null);
   useEffect(() => {
     fetch(`http://localhost:4000/blogs`)
       .then((resp) => resp.json())
@@ -30,16 +30,15 @@ export function Reviews({ currentUser, signOut }: Props) {
   return (
     <>
       <Navbar currentUser={currentUser} signOut={signOut} />
-      <h1 className="review-h1">Share your experience, write a review.</h1>
+      <h1 className="review-h1">Write a review.</h1>
       <form
         className="post-review"
         onSubmit={(event) => {
           event.preventDefault();
           let newReview = {
             content: event.target.content.value,
-            rating: Number(event.target.rating.value),
             blogId: Number(localStorage.blogId),
-            userId: currentUser.id,
+            userPremiumId: currentUser.id,
           };
 
           fetch("http://localhost:3005/reviews", {
@@ -51,24 +50,21 @@ export function Reviews({ currentUser, signOut }: Props) {
           });
           navigate(`/company/${localStorage.companyId}`);
           localStorage.removeItem("companyId");
+          navigate(`/homepage`);
         }}
       >
-        <input
-          type="textArea"
+        <div className="review-btn">
+        <textarea
           name="content"
           id="text"
           placeholder="Your Review?"
+          rows={5}
           required
-        ></input>
-
-        <input
-          type="number"
-          name="rating"
-          id="rating"
-          placeholder="Rating?"
-        ></input>
-        <button className="review-btn">POST</button>
+        ></textarea>
+        <button type="submit" className="save-btn">POST</button>
+        </div>
       </form>
     </>
+   
   );
 }

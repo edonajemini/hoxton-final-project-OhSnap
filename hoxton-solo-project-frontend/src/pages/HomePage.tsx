@@ -4,10 +4,10 @@ import homepagequote from "../assets/homepagequote.png";
 import { Navbar } from "../components/Navbar";
 import { Post } from "../components/Post";
 import { SearchBar } from "../components/SearchBar";
-import { Blogs } from "../types";
+import { Blogs, UserPremium } from "../types";
 import "./HomePage.css";
 type Props = {
-  currentUser: any;
+  currentUser: UserPremium;
   signOut: () => void;
   blogs: any;
   setBlogs: React.Dispatch<SetStateAction<Blogs[]>>;

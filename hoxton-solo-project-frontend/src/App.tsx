@@ -3,8 +3,7 @@ import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 
 import "./App.css";
 import { SignInPage } from "./pages/SignInPage";
-import { SelectRolePage } from "./pages/SelectRolePage";
-import { Blogs, User } from "./types";
+import { Blogs, UserPremium } from "./types";
 import * as API from "./api";
 import { CreateAccountPage } from "./pages/CreateAccountPage";
 import { HomePage } from "./pages/HomePage";
@@ -19,11 +18,12 @@ import { Celebrity } from "./pages/Celebrity";
 import { PostBlog } from "./pages/PostBlog";
 import Saved from "./pages/Saved";
 import { Profile } from "./pages/Profile";
+import { Review} from "./pages/Review";
 
 function App() {
   const navigate = useNavigate();
   const [blogs, setBlogs] = useState<Blogs[]>([]);
-  const [currentUser, setCurrentUser] = useState<User|null>(null);
+  const [currentUser, setCurrentUser] = useState<UserPremium|null>(null);
 
   function signIn(data: { user: any; token: string }) {
     setCurrentUser(data.user);
@@ -79,7 +79,7 @@ function App() {
         <Route path="/celebrity" element={<Celebrity blogs={blogs}
               setBlogs={setBlogs} />} />
         <Route path="/saved" element={<Saved blogs={blogs}
-              setBlogs={setBlogs} currentUser={currentUser} />} />
+        setBlogs={setBlogs} currentUser={currentUser} signOut={signOut} />} />
         <Route path="/post" element={<PostBlog blogs={blogs}
         setBlogs={setBlogs} signOut={signOut} currentUser={currentUser}   />} />
          <Route path="/profile" element={<Profile currentUser={currentUser}   />} />
@@ -87,11 +87,11 @@ function App() {
           path="/sign-up"
           element={<CreateAccountPage signIn={signIn} />}
         />
-       
+       <Route path="/review" element={<Review currentUser={currentUser} signOut={signOut} blogs={undefined} setBlogs={setBlogs} />} />
         <Route
           path="/blog-detail/:id"
           element={
-            <BlogDetails currentUser={currentUser} />}/>
+            <BlogDetails currentUser={currentUser} blogs={blogs} setBlogs={setBlogs } signOut={signOut} />}/>
 
       </Routes>
     </div>

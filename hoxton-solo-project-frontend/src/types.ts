@@ -9,7 +9,7 @@ export type SignUpData = {
   name: string;
   role: string;
 };
-export type User = {
+export type UserPremium = {
   id: number;
   email: string;
   password: string;
@@ -36,8 +36,7 @@ export type Blogs = {
 
 export type Reviews = {
   id: number;
-  companyId: number;
-  userId: number;
-  rating: number;
+  blogId: number;
+  userPremiumId: number;
   content: string;
 };

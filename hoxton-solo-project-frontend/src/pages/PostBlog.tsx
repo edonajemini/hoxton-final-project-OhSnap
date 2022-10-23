@@ -1,9 +1,9 @@
 import { SetStateAction, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Blogs } from "../types";
+import { Blogs, UserPremium } from "../types";
 
 type Props = {
-    currentUser: any;
+    currentUser: UserPremium;
     signOut: () => void;
     blogs: any;
     setBlogs: React.Dispatch<SetStateAction<Blogs[]>>;

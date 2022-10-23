@@ -3,10 +3,10 @@ import { signup } from '../api'
 import { Navbar } from '../components/Navbar'
 import { Post } from '../components/Post'
 import { SavedPost } from '../components/SavedPost'
-import { Blogs, User } from '../types'
+import { Blogs, UserPremium } from '../types'
 
 type Props = {
-  currentUser: any;
+  currentUser: UserPremium;
   signOut: () => void;
   blogs: any;
   setBlogs: React.Dispatch<SetStateAction<Blogs[]>>;

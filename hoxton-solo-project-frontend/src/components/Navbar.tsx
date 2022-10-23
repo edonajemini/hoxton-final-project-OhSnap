@@ -1,11 +1,10 @@
 import logo from "../assets/logo.png";
 import { NavLink } from "react-router-dom";
 import { SetStateAction } from "react";
-import { Blogs, User } from "../types";
-import { BsBellFill, BsPersonFill } from "react-icons/bs";
+import { Blogs, UserPremium } from "../types";
 import { BlogDetails } from "../pages/BlogDetails";
 type Props = {
-  currentUser: User;
+  currentUser: UserPremium;
   signOut: () => void;
 };
 export function Navbar({ currentUser, signOut }: Props) {
@@ -30,10 +29,7 @@ export function Navbar({ currentUser, signOut }: Props) {
             <li className="find-job-navbar-list-left-two">
               <NavLink to="/saved">Saved</NavLink>
             </li>
-            <li>
-            </li>
-            <li className="find-job-navbar-signedin-three">
-            </li>
+            <li className="username">👤 @Edona</li>
             <button className="signout-btn"
               onClick={() => {
                 signOut();

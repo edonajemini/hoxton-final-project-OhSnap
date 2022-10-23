@@ -1,19 +1,20 @@
 import { SetStateAction, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Navbar } from "../components/Navbar";
-import { Blogs, User } from "../types";
+import { Blogs, Reviews, UserPremium } from "../types";
 type Props = {
     blogs: any;
     setBlogs: React.Dispatch<SetStateAction<Blogs[]>>;
-    currentUser: User;
+    currentUser: UserPremium;
     signOut: () => void;
   };
  
 export function BlogDetails({blogs, setBlogs, currentUser, signOut}:Props){
   const [blog, setBlog] = useState<Blogs | null>(null);
-  const [users, setUsers] = useState<User[]>([]);
+  const [users, setUsers] = useState<UserPremium[]>([]);
+  const [reviews, setReviews] = useState<Reviews[]>([])
   useEffect(() => {
-    fetch("http://localhost:4000/users")
+    fetch("http://localhost:4000/premiumusers")
       .then((resp) => resp.json())
       .then((usersFromServer) => setUsers(usersFromServer));
   }, []);
@@ -49,8 +50,30 @@ if (blog === null) return <h2>Loading... </h2>;
             <h3><u>{blog.title}</u></h3>
             <p>{blog.blog}</p>
             <div className="blog-btns">
-                <button className="save-btn">Save</button>
+            <button onClick={() => {
+              return fetch(`http://localhost:4000/blogs/${blog.id}`, {
+                method: "PATCH",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  saved: !blog.saved,
+                }),
+              }).then(() => {
+                return fetch(`http://localhost:4000/blogs`)
+                  .then((resp) => resp.json())
+                  .then((blogsFromServer) => setBlogs(blogsFromServer));
+              });
+            }} className="save-btn">{blog.saved ? "SAVED":"Save"}</button>
                 <button className="like-btn">Like</button>
+                <Link to={"/review"}> <button className="save-btn">Review</button></Link>
+                <h2>Reviews:</h2>
+                {reviews.map(review => (
+                  <>
+                  <h3>{review.content}</h3>
+                  </>
+                ))}
+
                 </div>
             </div>
             </div>

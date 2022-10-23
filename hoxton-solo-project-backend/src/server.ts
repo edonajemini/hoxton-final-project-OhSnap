@@ -20,8 +20,6 @@ function generateToken(id: number) {
   return token;
 }
 
-
-
 async function getCurrentUser(token: string) {
   const decodedData = jwt.verify(token, JWT_SECRET);
   const userPremium = await prisma.userPremium.findUnique({
@@ -39,27 +37,33 @@ async function getCurrentUser(token: string) {
 
 app.post("/signup", async (req, res) => {
   try {
-    const userPremium = await prisma.userPremium.findUnique({
-      where: {email:req.body.email},
+    const users = await prisma.userPremium.findMany({
+      where: {
+        OR: [
+          {
+            email: req.body.email,
+          },
+          {
+            name: req.body.name,
+          },
+        ],
+      },
     });
-    if (userPremium) {
+    if (users.length > 0) {
       return res.status(401).send({ message: "User already exists" });
     } else {
-      const newUser = await prisma.userPremium.create({
+      const user = await prisma.userPremium.create({
         data: {
           email: req.body.email,
           name: req.body.name,
-          password: bcrypt.hashSync(req.body.password, 10),
-          
+          password: bcrypt.hashSync(req.body.password, 10)
         },
         include: {
           blog: true,
-          reviews:true,
-          emoji:true
         },
       });
-      const token = generateToken(newUser.id);
-      res.send({newUser, token});
+      const token = generateToken(user.id);
+      res.send({user, token});
     }
   } catch (error) {
     //@ts-ignore
@@ -69,17 +73,29 @@ app.post("/signup", async (req, res) => {
 
 //log-in user
 app.post("/login", async (req, res) => {
- 
-  const existingUser = await prisma.userPremium.findUnique({
-    where: { email: req.body.email },
-  });
+  const users = await prisma.userPremium.findMany({
+    where: {
+      OR: [
+        {
+          email: req.body.email,
+        },
+        {
+          name: req.body.name,
+        },
+      ],
+    },
+    include: {
+      blog: true,
+    },
+  })
 
-  if (existingUser && bcrypt.compareSync(req.body.password, existingUser.password)) {
-    const token = generateToken(existingUser.id);
-    res.send({ existingUser, token });
+  const userPremium = users[0];
 
+  if(userPremium && bcrypt.compareSync(req.body.password, userPremium.password)) {
+    const token = generateToken(userPremium.id);
+    res.send({ userPremium, token });
   } else {
-    res.status(401).send({ message: "Invalid credentials." });
+    res.status(401).send({ message: "Invalid credentials. Email or password is incorrect!" });
   }
 });
 
@@ -394,24 +410,31 @@ app.delete("/blogs/:id", async (req, res) => {
 //post reviews
 app.post('/reviews', async (req, res)=>{
   const review = {
-      content:req.body.content,
-      blogId: req.body.blogId,
-      userPremiumId:req.body.userPremiumId
+    userPremiumId: req.body.userPremiumId,
+    content: req.body.content,
+    blogId: req.body.blogId
   }
-  try{
-      const newReview = await prisma.review.create({
-      data: {
-        content:review.content,
-          blogId:review.blogId,
-          userPremiumId:review.userPremiumId
-      },
-      include:{ blog:true}
-      })
-      res.send(newReview)
-  } catch(err) {
-      // @ts-ignore
-      res.status(400).send(err.message)   
-  }
+  let errors: string[] = []
+
+    if (typeof req.body.userPremiumId !== 'number') {
+        errors.push('User Id not given!')
+      }
+
+    if( errors.length === 0)  {
+      try{
+          const newReview = await prisma.review.create({
+            data: {
+              userPremiumId: req.body.userPremiumId,
+              content: req.body.content,
+              blogId: req.body.blogId
+            }
+          })
+          res.send(newReview)
+        } catch(err) {
+          // @ts-ignore
+          res.status(400).send({errors: errors})
+        }
+    }
 })
 //delete reviews
 app.delete("/reviews/:id", async (req, res) => {

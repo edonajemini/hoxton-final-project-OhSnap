@@ -1,8 +1,8 @@
 import { useReducer } from "react";
-import { User } from "../types";
+import {  UserPremium } from "../types";
 
 type Props = {
-    currentUser: User;
+    currentUser: UserPremium;
   };
 export function Profile({currentUser}:Props){
 

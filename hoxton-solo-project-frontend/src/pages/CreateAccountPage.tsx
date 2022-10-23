@@ -1,9 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import "./CreateAccountPage.css";
 import * as API from "../api";
+import { UserPremium } from "../types";
 
 type Props = {
-  signIn: (data: { user: any; token: string }) => void;
+  signIn: (data: { user: UserPremium; token: string }) => void;
 };
 
 export function CreateAccountPage({ signIn }: Props) {

@@ -67,3 +67,20 @@
   margin-top: 20px;
   color: pink;
 }
+.post-review{
+  margin:300px;
+}
+.username{
+  color: white;
+}
+.review-h1{
+  margin:0 300px;
+  color: palevioletred;
+}
+.review-btn{
+  display: grid;
+  gap: 10px;
+}
+.review-btn button{
+  justify-self: flex-end;
+}
