@@ -81,8 +81,20 @@ if (blog === null) return <h2>Loading... </h2>;
               {blog.reviews.map((review: any) => (
                 <>
                   <div className="reviews">
-                    <h4>@{currentUser.name}</h4>
+                    <h4>{currentUser.name}</h4>
                     <h5>{review.content}</h5>
+                    <button className="DELETE-btn"
+                onClick={() => {
+                  fetch(`http://localhost:4000/reviews/${review.id}`, {
+                    method: "DELETE",
+                  })
+                    .then((resp) => resp.json())
+                    .then(() => location.reload());
+                }}
+              >
+                {" "}
+                X{" "}
+              </button>
                   </div>
                 </>
               ))}

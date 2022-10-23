@@ -118,6 +118,7 @@
 .DELETE-btn{
   border: none;
   width: 50px;
-  margin: 10px;
   justify-self: flex-end;
+  height: 10px;
+  background-color: pink;
 }
