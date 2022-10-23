@@ -370,7 +370,7 @@ app.delete("/blogs/:id", async (req, res) => {
 });
 
 //post reviews
-app.post("/reviews", async (req, res) => {
+app.post("/review", async (req, res) => {
   const reviews = {
     content: req.body.content,
     blogId: req.body.blogId,

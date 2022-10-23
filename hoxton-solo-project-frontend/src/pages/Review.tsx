@@ -19,9 +19,8 @@ export function Review({ currentUser, signOut, blogs, setBlogs }: Props) {
   }, []);
 
   return (
-    <>
-      <Navbar currentUser={currentUser} signOut={signOut} />
-      <h1 className="review-h1">Write a review!</h1>
+      <div className="review-content">
+      <h1>Write a review!</h1>
       <form
         className="post-review"
         onSubmit={(event) => {
@@ -29,17 +28,17 @@ export function Review({ currentUser, signOut, blogs, setBlogs }: Props) {
           let newReview = {
             content: event.target.content.value,
             blogId: Number(localStorage.blogId),
-            userId: currentUser.id,
+            userPremiumId: currentUser.id,
           };
 
-          fetch("http://localhost:4000/reviews", {
+          fetch("http://localhost:4000/review", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
             },
             body: JSON.stringify(newReview),
           });
-          navigate(`/review/${localStorage.blogId}`);
+          navigate(`/homepage`);
           localStorage.removeItem("blogId");
         }}
       >
@@ -54,6 +53,8 @@ export function Review({ currentUser, signOut, blogs, setBlogs }: Props) {
         <button className="save-btn">POST</button>
         </div>
       </form>
-    </>
+      
+      </div>
+    
   );
 }

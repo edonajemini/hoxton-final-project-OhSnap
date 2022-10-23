@@ -66,12 +66,22 @@ if (blog === null) return <h2>Loading... </h2>;
               });
             }} className="save-btn">{blog.saved ? "SAVED":"Save"}</button>
                 <button className="like-btn">Like</button>
-                <Link to={"/review"}> <button className="save-btn">Review</button></Link>
+                <Link to={"/review/"}>
+                  <button
+                    onClick={() => {
+                      localStorage.blogId = blog.id;
+                    }}
+                    className="save-btn"
+                  >
+                    Write a review
+                  </button>
+                </Link>
                 <h2>Reviews:</h2>
                 <p>
               {blog.reviews.map((review: any) => (
                 <>
                   <div className="reviews">
+                    <h4>@{currentUser.name}</h4>
                     <h5>{review.content}</h5>
                   </div>
                 </>

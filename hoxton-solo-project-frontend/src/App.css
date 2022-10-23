@@ -67,16 +67,11 @@
   margin-top: 20px;
   color: pink;
 }
-.post-review{
-  margin:300px;
-}
+
 .username{
   color: white;
 }
-.review-h1{
-  margin:0 300px;
-  color: palevioletred;
-}
+
 .review-btn{
   display: grid;
   gap: 10px;
@@ -105,4 +100,24 @@
 .email{
   display: grid;
   grid-auto-flow: row;
+}
+.review-content{
+  display: grid;
+  margin:0 500px;
+  color: palevioletred;
+}
+.review-content h1{
+  margin-top: 130px;
+}
+.review-content textarea{
+  width: 500px;
+}
+.review-content button{
+  align-self: flex-end;
+}
+.DELETE-btn{
+  border: none;
+  width: 50px;
+  margin: 10px;
+  justify-self: flex-end;
 }
