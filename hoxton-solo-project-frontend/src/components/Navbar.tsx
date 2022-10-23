@@ -29,7 +29,9 @@ export function Navbar({ currentUser, signOut }: Props) {
             <li className="find-job-navbar-list-left-two">
               <NavLink to="/saved">Saved</NavLink>
             </li>
-            <li className="username">👤 @{currentUser.name}</li>
+            <li className="username">
+              <NavLink to="/profile">👤 {currentUser.name}</NavLink>
+            </li>
             <button className="signout-btn"
               onClick={() => {
                 signOut();

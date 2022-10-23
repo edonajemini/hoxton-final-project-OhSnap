@@ -93,3 +93,16 @@
   margin-left: 50px;
   padding: 10px;
 }
+.profile{
+  margin: 10px 400px;
+}
+.profile-header{
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+.email{
+  display: grid;
+  grid-auto-flow: row;
+}
