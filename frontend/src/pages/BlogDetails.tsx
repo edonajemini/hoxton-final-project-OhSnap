@@ -66,7 +66,23 @@ if (blog === null) return <h2>Loading... </h2>;
                   .then((blogsFromServer) => setBlogs(blogsFromServer));
               });
             }} className="save-btn">{blog.saved ? <BsSuitHeartFill/>:<BsSuitHeart/>}</button>
-                <button className="like-btn">Like</button>
+
+                <button className="like-btn" onClick={() => {
+              return fetch(`http://localhost:4000/blogs/liked/${blog.id}`, {
+                method: "PATCH",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  liked: !blog.liked,
+                }),
+              }).then(() => {
+                return fetch(`http://localhost:4000/blogs`)
+                  .then((resp) => resp.json())
+                  .then((blogsFromServer) => setBlogs(blogsFromServer));
+              });
+            }}>
+                {blog.liked ? "LIKED":"Like"}</button>
                 <Link to={"/review/"}>
                   <button
                     onClick={() => {

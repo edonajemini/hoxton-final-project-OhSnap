@@ -49,8 +49,8 @@ export function Post({blogs, setBlogs, currentUser, }:Props){
               });
             }} className="save-btn">{blog.saved ? <BsSuitHeartFill/>:<BsSuitHeart/>}</button>
             
-                <button onClick={() => {
-              return fetch(`http://localhost:4000/blogs/${blog.id}`, {
+            <button className="like-btn" onClick={() => {
+              return fetch(`http://localhost:4000/blogs/liked/${blog.id}`, {
                 method: "PATCH",
                 headers: {
                   "Content-Type": "application/json",
@@ -63,7 +63,8 @@ export function Post({blogs, setBlogs, currentUser, }:Props){
                   .then((resp) => resp.json())
                   .then((blogsFromServer) => setBlogs(blogsFromServer));
               });
-            }} className="like-btn">{blog.liked ? "LIKED":"Like"}</button>
+            }}>
+                {blog.liked ? "LIKED":"Like"}</button>
                 <button className="save-btn"
                 onClick={() => {
                   fetch(`http://localhost:4000/blogs/${blog.id}`, {

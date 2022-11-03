@@ -211,7 +211,7 @@ app.patch("/blogs/:id", async (req, res) => {
 }
 })
 //change the blog to liked
-app.patch("/blogs/:id", async (req, res) => {
+app.patch("/blogs/liked/:id", async (req, res) => {
   try {
   const blog = await prisma.blog.update({
     where: {

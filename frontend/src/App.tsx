@@ -19,6 +19,7 @@ import { PostBlog } from "./pages/PostBlog";
 import Saved from "./pages/Saved";
 import { Profile } from "./pages/Profile";
 import { Review} from "./pages/Review";
+import { Footer } from "./components/Footer";
 
 function App() {
   const navigate = useNavigate();
@@ -88,6 +89,7 @@ function App() {
             <BlogDetails currentUser={currentUser} blogs={blogs} setBlogs={setBlogs } signOut={signOut} />}/>
 
       </Routes>
+      <Footer/>
     </div>
   );
 }
