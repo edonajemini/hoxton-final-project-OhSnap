@@ -2,6 +2,7 @@ import { SetStateAction, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Blogs, UserPremium } from "../types";
 import { timeElapsed } from "../api";
+import { BsSuitHeart, BsSuitHeartFill } from "react-icons/bs";
 type Props ={
   currentUser: UserPremium;
   blog: Blogs,
@@ -37,7 +38,7 @@ export function SavedPost({blog, setBlogs, currentUser, }:Props){
                   .then((resp) => resp.json())
                   .then((blogsFromServer) => setBlogs(blogsFromServer));
               });
-            }} className="save-btn">{blog.saved ? "SAVED":"Save"}</button>
+            }} className="save-btn">{blog.saved ? <BsSuitHeartFill/>:<BsSuitHeart/>}</button>
                 <button className="like-btn">Like</button>
                 <button className="save-btn"
                 onClick={() => {

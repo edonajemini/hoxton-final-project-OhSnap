@@ -43,7 +43,7 @@ export function Profile({currentUser, signOut}:Props){
             <div className="profile-header">
             <img src="https://static.vecteezy.com/system/resources/previews/005/129/844/original/profile-user-icon-isolated-on-white-background-eps10-free-vector.jpg" width="200px"/>
             <div className="email">
-        <div id="description-overview">
+        <div className="description-overview">
                 {isEditingName ? updateNameForm() : <h1>{currentUser.name}</h1>}
                 <button
                   className="edit-name-btn"

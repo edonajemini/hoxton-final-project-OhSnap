@@ -1,4 +1,5 @@
 import { SetStateAction, useEffect, useState } from "react";
+import { BsSuitHeart, BsSuitHeartFill } from "react-icons/bs";
 import { Link, useParams } from "react-router-dom";
 import { Navbar } from "../components/Navbar";
 import { Blogs, Reviews, UserPremium } from "../types";
@@ -64,7 +65,7 @@ if (blog === null) return <h2>Loading... </h2>;
                   .then((resp) => resp.json())
                   .then((blogsFromServer) => setBlogs(blogsFromServer));
               });
-            }} className="save-btn">{blog.saved ? "SAVED":"Save"}</button>
+            }} className="save-btn">{blog.saved ? <BsSuitHeartFill/>:<BsSuitHeart/>}</button>
                 <button className="like-btn">Like</button>
                 <Link to={"/review/"}>
                   <button

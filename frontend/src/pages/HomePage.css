@@ -98,6 +98,7 @@
     border: thin solid pink;
     border-radius: 5px;
     color: white;
+    font-size: 16px;
     background-color: #231f20;
 }
 .like-btn{
@@ -130,4 +131,13 @@
     grid-auto-flow: column;
     align-items: center;
     margin-left: -100px;
+}
+.description-overview{
+    display: grid;
+    grid-auto-flow: column;
+    gap: 100px;
+}
+.description-overview button{
+    height: 30px;
+    padding: 5p;
 }

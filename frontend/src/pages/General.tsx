@@ -1,5 +1,6 @@
 import { SetStateAction, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { timeElapsed } from "../api";
 import { SecondNavbar } from "../components/SecondNavbar";
 import { Blogs } from "../types";
 
@@ -25,7 +26,7 @@ export function General({blogs, setBlogs}:Props){
                 <h3><u>{blog.title}</u></h3>
                 <img src={blog.image} width="200px" />
                 <p>{blog.intro}</p>
-                <p className="date-time">{blog.createdAt}</p>
+                <p className="date-time">{timeElapsed(blog.createdAt)}</p>
                 
                 </div>
                 </Link>

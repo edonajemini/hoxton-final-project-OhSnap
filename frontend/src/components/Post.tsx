@@ -1,4 +1,5 @@
 import { SetStateAction, useEffect } from "react";
+import { BsHeart, BsSuitHeart, BsSuitHeartFill } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
 import { timeElapsed } from "../api";
 
@@ -46,7 +47,7 @@ export function Post({blogs, setBlogs, currentUser, }:Props){
                   .then((resp) => resp.json())
                   .then((blogsFromServer) => setBlogs(blogsFromServer));
               });
-            }} className="save-btn">{blog.saved ? "SAVED":"Save"}</button>
+            }} className="save-btn">{blog.saved ? <BsSuitHeartFill/>:<BsSuitHeart/>}</button>
             
                 <button onClick={() => {
               return fetch(`http://localhost:4000/blogs/${blog.id}`, {
@@ -73,7 +74,7 @@ export function Post({blogs, setBlogs, currentUser, }:Props){
                 }}
               >
                 {" "}
-                DELETE{" "}
+                Delete{" "}
               </button>
           
                 </div>
