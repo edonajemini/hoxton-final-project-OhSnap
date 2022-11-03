@@ -1,5 +1,6 @@
 import { SetStateAction, useEffect, useState } from "react";
 import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
+import * as API from "./api";
 
 import "./App.css";
 import { SignInPage } from "./pages/SignInPage";
@@ -35,22 +36,16 @@ function App() {
     localStorage.removeItem("token");
     navigate("/homepage")
   }
-
   useEffect(() => {
     if (localStorage.token) {
-      fetch("http://localhost:4000/validate", {
-        headers: {
-          Authorization: localStorage.token,
-        },
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.error) {
-            alert(data.error);
-          } else {
-            signIn(data);
-          }
-        });
+      API.validate().then((data) => {
+        if (data.error) {
+          alert(data.error);
+          localStorage.removeItem("token");
+        } else {
+          signIn(data);
+        }
+      });
     }
   }, []);
 
@@ -64,7 +59,7 @@ function App() {
               signOut={signOut}
               blogs={blogs}
               setBlogs={setBlogs}/>} />
-        <Route path="/signin" element={<SignInPage signIn={signIn} />} />
+        <Route path="/signin" element={<SignInPage signIn={signIn} currentUser={currentUser} />} />
         <Route path="/general" element={<General blogs={blogs}
               setBlogs={setBlogs}/>} />
         <Route path="/politics" element={<Politics blogs={blogs}
@@ -81,7 +76,7 @@ function App() {
         setBlogs={setBlogs} currentUser={currentUser} signOut={signOut} />} />
         <Route path="/post" element={<PostBlog blogs={blogs}
         setBlogs={setBlogs} signOut={signOut} currentUser={currentUser}   />} />
-         <Route path="/profile" element={<Profile currentUser={currentUser}   />} />
+         <Route path="/profile" element={<Profile currentUser={currentUser} signOut={signOut} />} />
         <Route
           path="/sign-up"
           element={<CreateAccountPage signIn={signIn} />}

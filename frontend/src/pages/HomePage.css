@@ -5,10 +5,12 @@
     grid-auto-flow: row;
    gap: 50px;
 }
+
 .blogs{
     height: 400px;
     margin-top: 70px;
-    background-color: #fafafa;
+    background-color: #fafafa54;
+    border:thin solid rgba(220, 220, 220, 0.563);
     color: black;
     border-radius: 5px;
     display: grid;
@@ -23,9 +25,7 @@
     height: 200px;
     border-radius: 5px;
 }
-a {
-    text-decoration:none ;
-  }
+
 .blogs p{
     color: rgb(43, 43, 43);
 }
@@ -55,9 +55,14 @@ a {
     background-color: pink;
     padding: 5px;
 }
-a{
-    color: white;
-}
+.categories-items a{
+    text-decoration: none;
+    color: #fbfaf9;
+  }
+.categories-items .active{
+    color: #231f20;
+    font-weight: 700;
+  }
 .blog-search{
     margin-left: 400px;
     margin-top: 50px;
@@ -78,16 +83,7 @@ a{
 .blog-search input:focus{
     outline-color: #231f20;
 }
-.category{
-    margin-left: 255px;
-    position: fixed;
-    margin-top: 5px;
-    background-color: gainsboro;
-    color: black;
-    padding: 10px;
-    font-weight: 400;
-    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-}
+
 .blog-btns{
     display: grid;
     grid-auto-flow: column;
@@ -117,4 +113,21 @@ a{
     display: grid;
     width: 400px;
     gap: 2rem;
+}
+.username{
+    display: grid;
+    grid-auto-flow: column;
+    justify-content: left;
+    align-items: center;
+    gap: 10px;
+}
+.react-icon{
+    color: pink;
+    padding-top: 5px;
+}
+.review-user{
+    display: grid;
+    grid-auto-flow: column;
+    align-items: center;
+    margin-left: -100px;
 }

@@ -1,5 +1,6 @@
 import { SetStateAction, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { SecondNavbar } from "../components/SecondNavbar";
 import { Blogs } from "../types";
 
 type Props = {
@@ -15,7 +16,7 @@ export function General({blogs, setBlogs}:Props){
       }, []);
     return(
         <>
-        <h2 className="category">Category:<u>General</u></h2>
+        <SecondNavbar/>
          <div className="blogs-feed">
           {blogs.map((blog:any) => (
               <>

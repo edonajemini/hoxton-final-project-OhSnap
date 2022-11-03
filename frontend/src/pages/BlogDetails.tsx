@@ -79,9 +79,15 @@ if (blog === null) return <h2>Loading... </h2>;
                 <h2>Reviews:</h2>
                 <p>
               {blog.reviews.map((review: any) => (
-                <>
+                <div className="review-user">
+                   {users.filter(userPremium => userPremium.id === review.userPremiumId).map(users => (
+              <>
+              <div className="user-name">
+              <p>{users.name} </p>
+              </div>
+              </>
+            ))}
                   <div className="reviews">
-                    <h4>{currentUser.name}</h4>
                     <h5>{review.content}</h5>
                     <button className="DELETE-btn"
                 onClick={() => {
@@ -96,7 +102,7 @@ if (blog === null) return <h2>Loading... </h2>;
                 X{" "}
               </button>
                   </div>
-                </>
+                </div>
               ))}
             </p>
                 </div>

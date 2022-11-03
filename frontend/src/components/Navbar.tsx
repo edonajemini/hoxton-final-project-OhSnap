@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import { SetStateAction } from "react";
 import { Blogs, UserPremium } from "../types";
 import { BlogDetails } from "../pages/BlogDetails";
+import {  BsPersonFill } from "react-icons/bs";
 type Props = {
   currentUser: UserPremium;
   signOut: () => void;
@@ -30,7 +31,10 @@ export function Navbar({ currentUser, signOut }: Props) {
               <NavLink to="/saved">Saved</NavLink>
             </li>
             <li className="username">
-              <NavLink to="/profile">👤 {currentUser.name}</NavLink>
+            <li className="react-icon">
+             <BsPersonFill />
+              </li>
+              <NavLink to="/profile">{currentUser.name}</NavLink>
             </li>
             <button className="signout-btn"
               onClick={() => {

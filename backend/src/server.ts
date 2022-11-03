@@ -306,7 +306,54 @@ app.get("/userPremium/reviews", async (req, res) => {
     res.status(500).send({ error: error.message });
   }
 });
+//This endpoint will let u edit the name of the user
+app.patch("/users/:id/patch", async (req, res) => {
+  try {
+    // @ts-ignore
+    const user = await prisma.userPremium.update({
+      where: { id: Number(req.params.id) },
+      data: {
+        // @ts-ignore
+        name: req.body.name
+      },
+      include: { reviews: true, blog: true, emoji: true },
+    });
 
+    res.send(user);
+  } catch (error) {
+    // @ts-ignore
+    res.status(500).send({ error: error.message });
+  }
+});
+//
+app.patch("/change-profile-name/:id", async (req, res) => {
+  try {
+    const id = Number(req.params.id);
+    if (!id) {
+      res.status(400).send({ errors: ["Name id not provided"] });
+      return;
+    }
+    const errors: string[] = [];
+    const name = req.body.name;
+    if (typeof name !== "string") {
+      errors.push("Name not provided or not a string");
+    }
+    if (errors.length === 0) {
+      const user = await prisma.userPremium.update({
+        where: { id },
+        data: {
+          name,
+        },
+      });
+      res.send(user);
+    } else {
+      res.status(400).send({ errors });
+    }
+  } catch (error) {
+    //@ts-ignore
+    res.status(400).send({ errors: [error.message] });
+  }
+});
 // This endpoint will post a new blog 
 app.post('/blogs', async (req, res)=>{
   const blog = {
@@ -369,6 +416,17 @@ app.delete("/blogs/:id", async (req, res) => {
   }
 });
 
+//delete user
+app.delete("/users/:id", async (req, res) => {
+  try {
+    const user = await prisma.userPremium.delete({
+      where: { id: Number(req.params.id) },
+    });
+    res.send(user);
+  } catch (error) {
+    res.status(400).send({ error: error });
+  }
+});
 //post reviews
 app.post("/review", async (req, res) => {
   const reviews = {
@@ -414,6 +472,20 @@ app.delete("/reviews/:id", async (req, res) => {
     res.send(review);
   } catch (error) {
     res.status(400).send({ error: error });
+  }
+});
+//
+app.get("/users/:id/blogs", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const blog = await prisma.blog.findFirst({
+      where: { userPremiumId: Number(id) },
+      include: { reviews: true, userPremium: true},
+    });
+    res.send(blog);
+  } catch (error) {
+    // @ts-ignore
+    res.status(500).send({ error: error.message });
   }
 });
 

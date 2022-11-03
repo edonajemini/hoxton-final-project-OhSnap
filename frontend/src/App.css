@@ -2,6 +2,9 @@
   text-align:justify;
   font-family: Verdana (sans-serif);
 }
+a{
+  text-decoration: none;
+}
 .nav-bar{
   display: grid;
   grid-auto-flow: row;
@@ -81,9 +84,11 @@
 }
 .reviews{
   display: grid;
-  grid-auto-flow: row;
+  grid-auto-flow: column;
   width: 300px;
+  height: 40px;
   border:thin solid pink;
+  align-items: center;
   margin-bottom: 5px;
   margin-left: 50px;
   padding: 10px;

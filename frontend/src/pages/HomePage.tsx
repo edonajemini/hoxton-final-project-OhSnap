@@ -4,6 +4,7 @@ import homepagequote from "../assets/homepagequote.png";
 import { Navbar } from "../components/Navbar";
 import { Post } from "../components/Post";
 import { SearchBar } from "../components/SearchBar";
+import { SecondNavbar } from "../components/SecondNavbar";
 import { Blogs, UserPremium } from "../types";
 import "./HomePage.css";
 type Props = {
@@ -17,17 +18,7 @@ export function HomePage({ blogs, setBlogs, currentUser, signOut }: Props) {
     <div className="HomePage">
         <Navbar currentUser={currentUser}
               signOut={signOut}/>
-      <ul className="categories">
-        <li>Choose your favorite categories</li>
-        <ul className="categories-items">
-          <Link to={"/general"}>General</Link>
-          <Link to={"/politics"}>Politics</Link>
-          <Link to={"/movies"}>Movies</Link>
-          <Link to={"/books"}>Books</Link>
-          <Link to={"/socialmedia"}>Social Media</Link>
-          <Link to={"/celebrity"}>Celebrity</Link>
-        </ul>
-      </ul>
+      <SecondNavbar/>
       <SearchBar setBlogs={setBlogs}/>
       <Post blogs={blogs} setBlogs={setBlogs} currentUser={currentUser} signOut={signOut } />
     </div>
