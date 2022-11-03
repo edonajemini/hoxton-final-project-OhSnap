@@ -1,5 +1,6 @@
 import { SetStateAction, useEffect } from "react";
 import { BsHeart, BsSuitHeart, BsSuitHeartFill } from "react-icons/bs";
+import { SlDislike, SlLike } from "react-icons/sl";
 import { Link, useNavigate } from "react-router-dom";
 import { timeElapsed } from "../api";
 
@@ -64,7 +65,7 @@ export function Post({blogs, setBlogs, currentUser, }:Props){
                   .then((blogsFromServer) => setBlogs(blogsFromServer));
               });
             }}>
-                {blog.liked ? "LIKED":"Like"}</button>
+                {blog.liked ? <SlDislike/>:<SlLike/>}</button>
                 <button className="save-btn"
                 onClick={() => {
                   fetch(`http://localhost:4000/blogs/${blog.id}`, {

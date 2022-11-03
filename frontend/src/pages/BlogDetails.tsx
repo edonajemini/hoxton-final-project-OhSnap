@@ -14,6 +14,8 @@ export function BlogDetails({blogs, setBlogs, currentUser, signOut}:Props){
   const [blog, setBlog] = useState<Blogs | null>(null);
   const [users, setUsers] = useState<UserPremium[]>([]);
   const [reviews, setReviews] = useState<Reviews[]>([])
+
+
   useEffect(() => {
     fetch("http://localhost:4000/premiumusers")
       .then((resp) => resp.json())
